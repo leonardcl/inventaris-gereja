@@ -1,3 +1,14 @@
+<?php 
+    session_start();
+    if (isset($_POST['logout'])) {
+		    session_destroy();
+		    header("location:login.php?status=logout");
+	  }
+    if (!isset($_SESSION['user_login'])) {
+		header("location:login.php");
+    }
+    include('connect.php');
+?>
 <?php
 include("connect.php");
 $idErr = $namabarangErr = $jumlahErr = $tahunbeliErr = $ownerErr = $lokasiErr = "";

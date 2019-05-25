@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,7 +46,7 @@
     </ul>
     </div>
     <form method='POST'>
-        <button type="submit" class="btn btn-primary btn-block" name='logout'>Logout</button>    
+    <button type="submit" class="btn btn-primary btn-block" name='logout'>Logout</button>    
     </form>
 </nav>
 

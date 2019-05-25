@@ -5,7 +5,7 @@
  		$password = $_POST['password'];
  		if ($username == "admin" && $password == "admin") {
  				$_SESSION['user_login'] = $username;
- 				header("location:index.php");
+ 				header("location:tabel_peminjaman.php");
  		}
  		else{
  			header("location:login.php?status=gagal");

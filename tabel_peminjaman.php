@@ -28,13 +28,11 @@
   background-position: 10px 10px;
   background-size:27px;
   background-repeat: no-repeat;
-  width: 30%;
   font-size: 16px;
   padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
+
   margin-bottom: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
+
   margin-top: 20px;
 }
 #myTable {
@@ -68,16 +66,19 @@
 	<div class="row">
 		<div class="col-12 text-center">
     		<h2 class='display-3'>Tabel Peminjaman</h2>
-    	</div>	
+    </div>	
 	</div>
-	<center>
-	<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama..." title="Type in a name">
-</center>	
+				<div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+              <input type="text" class='form-control' id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama..." title="Type in a name">
+            </div>
+            <div class="col-4"></div>
+        </div>
 	<div class="row">
 			<div class="col-12">
 				<table class='table table-hover' id="myTable">
 					<tr class="bg-info" class="header">
-						<th>ID Peminjaman</th>
 						<th>ID Barang</th>
 						<th>Jumlah</th>
 						<th>Tanggal Peminjaman</th>
@@ -94,7 +95,6 @@
 					while($d = mysqli_fetch_array($data)){
 						?>
 						<tr>
-							<td><?php echo $d['id_peminjaman']; ?></td>
 							<td><?php echo $d['id_barang']; ?></td>
 							<td><?php echo $d['jumlah']; ?></td>
 							<td><?php echo $d['tanggal_peminjaman']; ?></td>

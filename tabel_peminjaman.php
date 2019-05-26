@@ -18,7 +18,45 @@
     <title>Tabel Peminjaman</title>
 
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+		<style>
+* {
+  box-sizing: border-box;
+}
 
+#myInput {
+  background-image: url('icon.png');
+  background-position: 10px 10px;
+  background-size:27px;
+  background-repeat: no-repeat;
+  width: 30%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
+</style>
 </head>
 <body>
 
@@ -32,10 +70,13 @@
     		<h2 class='display-3'>Tabel Peminjaman</h2>
     	</div>	
 	</div>
-		<div class="row">
+	<center>
+	<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama..." title="Type in a name">
+</center>	
+	<div class="row">
 			<div class="col-12">
-				<table class='table table-hover'>
-					<tr class="bg-info">
+				<table class='table table-hover' id="myTable">
+					<tr class="bg-info" class="header">
 						<th>ID Peminjaman</th>
 						<th>ID Barang</th>
 						<th>Jumlah</th>
@@ -94,6 +135,26 @@
       autoclose: true
     });
 
+</script>
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
 </script>
 </body>
 </html>

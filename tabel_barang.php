@@ -36,6 +36,7 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
   padding: 12px 20px 12px 40px;
   margin-bottom: 20px;
   margin-left: 20px;
+  margin-right: 20px;
   margin-top: 20px;
 }
 #myTable {
@@ -77,6 +78,9 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
             </div>
             <div class="col-4"></div>
         </div>
+        <center>
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama..." title="Type in a name">
+        </center>
         <div class="row">
             <div class="col-2"></div>
             <div class="col-8">

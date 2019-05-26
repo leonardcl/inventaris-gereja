@@ -35,8 +35,6 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
   background-repeat: no-repeat;
   padding: 12px 20px 12px 40px;
   margin-bottom: 50px;
-  margin-left: 20px;
-  margin-right: 20px;
   margin-top: 20px;
 }
 #myTable {

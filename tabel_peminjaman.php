@@ -9,7 +9,7 @@
     }
     include('connect.php');
 ?>
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -34,6 +34,7 @@
   border: 1px solid #ddd;
   margin-bottom: 20px;
   margin-left: 20px;
+  margin-right: 20px;
   margin-top: 20px;
 }
 #myTable {
@@ -62,14 +63,17 @@
   <?php 
     include('resource/navbar.php');
   ?>
-	<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama..." title="Type in a name">
+	
 	<div class="container-fluid">
 	<div class="row">
 		<div class="col-12 text-center">
     		<h2 class='display-3'>Tabel Peminjaman</h2>
     	</div>	
 	</div>
-		<div class="row">
+	<center>
+	<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama..." title="Type in a name">
+</center>	
+	<div class="row">
 			<div class="col-12">
 				<table class='table table-hover' id="myTable">
 					<tr class="bg-info" class="header">

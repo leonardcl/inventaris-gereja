@@ -78,9 +78,11 @@
         ?>
     </select>
 	<br>
-    <button id="Filter">Search</button>
-
+    <button name="filter">Search</button>
+</div>
 <?php
+if(isset($_POST['filter'])){
+	echo "masuk";
 if (! empty($_POST['kembali'])) {
     ?>
 <table cellpadding="10" cellspacing="1">
@@ -115,7 +117,7 @@ if (! empty($_POST['kembali'])) {
     
     $result = $db_handle->runQuery($query);
 }
-if (! empty($result)) {
+if (empty($result)) {
     foreach ($result as $key => $value) {
         ?>
         <tr>
@@ -145,7 +147,7 @@ if (! empty($result)) {
                 </div></td>
         </tr>
         <?php
-    }
+    }}}
     ?>
 	
 	<div class="container-fluid">

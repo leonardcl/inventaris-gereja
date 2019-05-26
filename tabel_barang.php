@@ -39,6 +39,7 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
   border: 1px solid #ddd;
   margin-bottom: 20px;
   margin-left: 20px;
+  margin-right: 20px;
   margin-top: 20px;
 }
 #myTable {
@@ -66,13 +67,15 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
     <?php 
         include('resource/navbar.php');
     ?>
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama..." title="Type in a name">
     <div class="contanier-fluid">
         <div class="row">
             <div class="col-12 text-center">
                 <h2 class='display-3'>Tabel Barang</h2>
             </div>
         </div>
+        <center>
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama..." title="Type in a name">
+        </center>
         <div class="row">
             <div class="col-2"></div>
             <div class="col-8">

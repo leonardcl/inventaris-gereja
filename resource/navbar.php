@@ -47,7 +47,7 @@
     <div style="color:white; margin-left: 20px;margin-right: 20px;">
     <?php
     $tanggal= mktime(date("m"),date("d"),date("Y"));
-    echo ("<b>".date("d-M-Y", $tanggal)."</b>");
+    echo ("<b>".date("d M Y", $tanggal)."</b>");
     date_default_timezone_set('Asia/Jakarta');
     ?> 
     </div>

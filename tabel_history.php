@@ -36,7 +36,6 @@
 			<div class="col-12">
 				<table class='table table-hover'>
 					<tr class="bg-warning">
-						<th>ID Peminjaman</th>
 						<th>ID Barang</th>
 						<th>Jumlah</th>
 						<th>Tanggal Peminjaman</th>
@@ -49,11 +48,10 @@
 					<?php 
 					include 'connect.php';
 					$no = 1;
-					$data = mysqli_query($conn,"select * from history");
+					$data = mysqli_query($conn,"select * from history order by id_peminjaman desc");
 					while($d = mysqli_fetch_array($data)){
 						?>
 						<tr>
-							<td><?php echo $d['id_peminjaman']; ?></td>
 							<td><?php echo $d['id_barang']; ?></td>
 							<td><?php echo $d['jumlah']; ?></td>
 							<td><?php echo $d['tanggal_peminjaman']; ?></td>

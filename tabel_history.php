@@ -35,7 +35,7 @@
 		<div class="row">
 			<div class="col-12">
 				<table class='table table-hover'>
-					<tr class="bg-warning">
+					<tr class="bg-warning">	
 						<th>ID Barang</th>
 						<th>Jumlah</th>
 						<th>Tanggal Peminjaman</th>

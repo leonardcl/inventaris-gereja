@@ -78,7 +78,7 @@
 			<div class="col-12">
 				<table class='table table-hover' id="myTable">
 					<tr class="bg-info" class="header">
-						<th>ID Barang</th>
+						<th>Nama Barang</th>
 						<th>Jumlah</th>
 						<th>Tanggal Peminjaman</th>
 						<th>Tanggal Kembali</th>
@@ -91,10 +91,19 @@
 					include 'connect.php';
 					$no = 1;
 					$data = mysqli_query($conn,"select * from peminjaman");
+					
+					$data1 = mysqli_query($conn,"select nama_barang from barang where id = id_barang");
+					
 					while($d = mysqli_fetch_array($data)){
 						?>
 						<tr>
-							<td><?php echo $d['id_barang']; ?></td>
+							<?php
+								$id_brng = $d['id_barang'];
+							
+								$data1 = mysqli_query($conn,"select nama_barang from barang where id = $id_brng");
+								$d1 = mysqli_fetch_array($data1);
+							?>
+							<td><?php echo $d1['nama_barang']; ?></td>
 							<td><?php echo $d['jumlah']; ?></td>
 							<td><?php echo $d['tanggal_peminjaman']; ?></td>
 							<td><?php echo $d['tanggal_kembali']; ?></td>

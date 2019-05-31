@@ -62,18 +62,26 @@
     include('resource/navbar.php');
   ?>
 	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12 text-center">
+    			<h2 class='display-3'>Tabel Peminjaman</h2>
+    			</div>	
+		</div>
+		
+		<form method="get">
+			<label>PILIH TANGGAL Kembali</label>
+			<input type="date" name="tanggal_kembali">
+			<input type="submit" class="btn btn-success" value="FILTER" name='<?php echo $klik?>'>    
+      			<a href="tabel_peminjaman.php" class='btn btn-dark'>RESET</a>
+    		</form>
+		
 	<div class="row">
-		<div class="col-12 text-center">
-    		<h2 class='display-3'>Tabel Peminjaman</h2>
-    </div>	
-	</div>
-				<div class="row">
-            <div class="col-4"></div>
-            <div class="col-4">
-              <input type="text" class='form-control' id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama..." title="Type in a name">
-            </div>
-            <div class="col-4"></div>
-        </div>
+            		<div class="col-4"></div>
+            			<div class="col-4">
+              			<input type="text" class='form-control' id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama..." title="Type in a name">
+            			</div>
+            		<div class="col-4"></div>
+        	</div>
 	<div class="row">
 			<div class="col-12">
 				<table class='table table-hover' id="myTable">
@@ -90,11 +98,22 @@
 					<?php 
 					include 'connect.php';
 					$no = 1;
-					$data = mysqli_query($conn,"select * from peminjaman");
-					
-					$data1 = mysqli_query($conn,"select nama_barang from barang where id = id_barang");
-					
-					while($d = mysqli_fetch_array($data)){
+					if(isset($_GET['tanggal_kembali'])){
+            					$tgl = $_GET['tanggal_kembali'];
+           					 $sql = mysqli_query($conn,"select * from peminjaman where tanggal_kembali ='$tgl'");
+            						if($tgl == ''){
+             					 	$sql = mysqli_query($conn,"select * from peminjaman");
+            						}
+          				}
+          				elseif (isset($_GET['back'])) {
+            					$sql = mysqli_query($conn,"select * from peminjaman");
+         				 }
+          
+         				 else{
+            					$sql = mysqli_query($conn,"select * from peminjaman");
+         					 }
+          
+					while($d = mysqli_fetch_array($sql)){
 						?>
 						<tr>
 							<?php
@@ -152,7 +171,7 @@ function myFunction() {
   table = document.getElementById("myTable");
   tr = table.getElementsByTagName("tr");
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
+    td = tr[i].getElementsByTagName("td")[4];
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {

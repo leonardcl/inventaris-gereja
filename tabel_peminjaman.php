@@ -24,7 +24,7 @@
 }
 
 #myInput {
-  background-image: url('icon.png');
+  background-image: url('searchicon.png');
   background-position: 10px 10px;
   background-size:27px;
   background-repeat: no-repeat;

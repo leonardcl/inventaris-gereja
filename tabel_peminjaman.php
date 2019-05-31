@@ -78,7 +78,7 @@
 			<div class="col-12">
 				<table class='table table-hover' id="myTable">
 					<tr class="bg-info" class="header">
-						<th>ID Barang</th>
+						<th>Nama Barang</th>
 						<th>Jumlah</th>
 						<th>Tanggal Peminjaman</th>
 						<th>Tanggal Kembali</th>
@@ -94,7 +94,7 @@
 					while($d = mysqli_fetch_array($data)){
 						?>
 						<tr>
-							<td><?php echo $d['id_barang']; ?></td>
+							<td><?php echo $d['nama_barang']; ?></td>
 							<td><?php echo $d['jumlah']; ?></td>
 							<td><?php echo $d['tanggal_peminjaman']; ?></td>
 							<td><?php echo $d['tanggal_kembali']; ?></td>

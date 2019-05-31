@@ -68,6 +68,27 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
                 <h2 class='display-3'>Tabel Barang</h2>  
             </div>
         </div>
+	    
+	    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+    <form method="get">
+		<label>Pilih Lokasi</label>
+		<select class="form-control" name="lokasi" >
+            <?php
+            $sqldata = mysqli_query($conn, "select * from barang");
+            while($data = mysqli_fetch_assoc($sqldata))
+            {
+                echo"<option value=",$data['lokasi'],">",$data['lokasi'],"</option>";
+            }
+            ?>
+        </select>
+		<input type="submit" class="btn btn-success" value="FILTER" name='<?php echo $klik?>'>    
+      	<a href="tabel_barang.php" class='btn btn-dark'>RESET</a>
+    	</form>    
+        </div>
+    </div>
+	    
         <div class="row">
             <div class="col-4"></div>
             <div class="col-4">
@@ -85,7 +106,22 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
                         <th>Nama Barang</th> <th>Jumlah</th> <th>Tahun Beli</th><th>Owner</th><th>Lokasi</th><th>Opsi</th>
                     </tr>
                     <?php  
-                    while($user_data = mysqli_fetch_array($result)) {         
+                    if(isset($_GET['lokasi'])){
+                        $loc = $_GET['lokasi'];
+                        echo $loc;
+                        $sql = mysqli_query($conn,"select * from barang  where lokasi ='$loc'");
+                        if($loc == ''){
+                            $sql = mysqli_query($conn,"select * from barang");
+                        }
+                    }
+                    elseif (isset($_GET['back'])) {
+                        $sql = mysqli_query($conn,"select * from barang");
+                    }
+                    else{
+                        $sql = mysqli_query($conn,"select * from barang");
+                      }
+                    while($user_data = mysqli_fetch_array($sql)) {  
+                                        
                         echo "<tr>";
                         echo "<td class='align-middle'>".$user_data['nama_barang']."</td>";
                         echo "<td class='align-middle'>".$user_data['jumlah']."</td>";    

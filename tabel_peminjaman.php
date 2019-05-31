@@ -24,9 +24,9 @@
 }
 
 #myInput {
-  background-image: url('searchicon.png');
+  background-image: url('icon.png');
   background-position: 10px 10px;
-  background-size:100%;
+  background-size:27px;
   background-repeat: no-repeat;
   font-size: 16px;
   padding: 12px 20px 12px 40px;
@@ -91,10 +91,19 @@
 					include 'connect.php';
 					$no = 1;
 					$data = mysqli_query($conn,"select * from peminjaman");
+					
+					$data1 = mysqli_query($conn,"select nama_barang from barang where id = id_barang");
+					
 					while($d = mysqli_fetch_array($data)){
 						?>
 						<tr>
-							<td><?php echo $d['nama_barang']; ?></td>
+							<?php
+								$id_brng = $d['id_barang'];
+							
+								$data1 = mysqli_query($conn,"select nama_barang from barang where id = $id_brng");
+								$d1 = mysqli_fetch_array($data1);
+							?>
+							<td><?php echo $d1['nama_barang']; ?></td>
 							<td><?php echo $d['jumlah']; ?></td>
 							<td><?php echo $d['tanggal_peminjaman']; ?></td>
 							<td><?php echo $d['tanggal_kembali']; ?></td>

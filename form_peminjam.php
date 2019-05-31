@@ -134,7 +134,15 @@ include('resource/navbar.php');
         <form method="post" >
             <div class="form-group">
                 <label>ID Barang</label><span class="text-danger">* <?php echo $id_barangErr;?></span>
-                <input class='form-control' type="text" name="id_barang" value="<?php echo $id_barang;?>">
+                <select name="id_barang" id="" class='form-control' value="<?php echo $id_barang;?>" type="text">
+                  <?php 
+                    $sqldata = mysqli_query($conn, "select * from barang");
+                    while($data = mysqli_fetch_assoc($sqldata))
+                    {
+                      echo "<option value=",$data['id'],">",$data['nama_barang'],"</option>";
+                    }
+                  ?>
+                </select>
             </div>
             <div class="form-group">
                 <label>Jumlah</label><span class="text-danger">* <?php echo $jumlahErr;?></span>

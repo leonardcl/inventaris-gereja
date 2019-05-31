@@ -133,7 +133,7 @@ include('resource/navbar.php');
     <div class="col-6">
         <form method="post" >
             <div class="form-group">
-                <label>ID Barang</label><span class="text-danger">* <?php echo $id_barangErr;?></span>
+                <label>Nama Barang</label><span class="text-danger">* <?php echo $id_barangErr;?></span>
                 <select name="id_barang" id="" class='form-control' value="<?php echo $id_barang;?>" type="text">
                   <?php 
                     $sqldata = mysqli_query($conn, "select * from barang");
@@ -165,7 +165,7 @@ include('resource/navbar.php');
                 <input class='form-control' type="text" name="kontak_peminjam" value="<?php echo $kontak_peminjam;?>">
             </div>
             <div class="form-group">
-                <label>Kontak Cadangan</label><span class="text-danger">* <?php echo $kontak_cadanganErr;?></span>
+                <label>Kontak Cadangan</label>
                 <input class='form-control' type="text" name="kontak_cadangan" value="<?php echo $kontak_cadangan;?>">
             </div>
             <input class='btn btn-primary'type="submit" name="update" value="Submit">

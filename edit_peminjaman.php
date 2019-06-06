@@ -142,12 +142,28 @@
         <div class="col-6">
             <form method="post" >
                 <div class="form-group">
-                    <label>ID Barang</label><span class="text-danger">* <?php echo $id_barangErr;?></span>
-                    <input class='form-control' type="text" name="id_barang" value="<?php echo $d['id_barang'];?>">
+                    <label>Nama Barang</label><span class="text-danger">* <?php echo $id_barangErr;?></span>
+                    <select name="id_barang" id="" class='form-control' value="<?php echo $d['id_barang'];?>" type="text" readonly>
+                    <?php 
+                        $sqldata = mysqli_query($conn, "select * from barang");
+                        while($data = mysqli_fetch_assoc($sqldata))
+                        {
+                            if ($d['id_barang']==$data['id']) {
+                                # code...
+                                echo "<option value=",$data['id']," selected>",$data['nama_barang'],"</option>";
+                            }
+                            else {
+                                # code...
+                                echo "<option value=",$data['id'],">",$data['nama_barang'],"</option>";
+                            }
+                        
+                        }
+                    ?>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Jumlah</label><span class="text-danger">* <?php echo $jumlahErr;?></span>
-                    <input class='form-control' type="num" name="jumlah" value="<?php echo $d['jumlah'];?>">
+                    <input class='form-control' type="num" name="jumlah" value="<?php echo $d['jumlah'];?>" readonly>
                 </div>
                 <div class="form-group">
                     <label>Tanggal Peminjaman</label><span class="text-danger">* <?php echo $tanggal_peminjamErr;?></span>
@@ -159,15 +175,15 @@
                 </div>
                 <div class="form-group">
                     <label>Nama Peminjam</label><span class="text-danger">* <?php echo $nama_peminjamErr;?></span>
-                    <input class='form-control' type="text" name="nama_peminjam" value="<?php echo $d['nama_peminjam'];?>">
+                    <input class='form-control' type="text" name="nama_peminjam" value="<?php echo $d['nama_peminjam'];?>"readonly>
                 </div>
                 <div class="form-group">
                     <label>Kontak Peminjam</label><span class="text-danger">* <?php echo $kontak_peminjamErr;?></span>
-                    <input class='form-control' type="text" name="kontak_peminjam" value="<?php echo $d['kontak_peminjam'];?>">
+                    <input class='form-control' type="text" name="kontak_peminjam" value="<?php echo $d['kontak_peminjam'];?>" readonly>
                 </div>
                 <div class="form-group">
                     <label>Kontak Cadangan</label><span class="text-danger">* <?php echo $kontak_cadanganErr;?></span>
-                    <input class='form-control' type="text" name="kontak_cadangan" value="<?php echo $d['kontak_cadangan'];?>">
+                    <input class='form-control' type="text" name="kontak_cadangan" value="<?php echo $d['kontak_cadangan'];?>" >
                 </div>
                 <input class='btn btn-primary'type="submit" name="update" value="Submit">
             </form>

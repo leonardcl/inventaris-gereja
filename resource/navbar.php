@@ -42,6 +42,9 @@
       <li class="nav-item>">
         <a class="nav-link" href="tabel_history.php">History</a>
       </li>
+        <li class="nav-item>">
+        <a class="nav-link" href="report.php">Report</a>
+      </li>
     </ul>
     </div>
     <div style="color:white; margin-left: 20px;margin-right: 20px;">

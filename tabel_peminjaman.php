@@ -17,6 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tabel Peminjaman</title>
 
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
 		<style>
 * {
@@ -67,18 +68,32 @@
     			<h2 class='display-3'>Tabel Peminjaman</h2>
     			</div>	
 		</div>
-		
-		<form method="get">
-			<label>PILIH TANGGAL Kembali</label>
-			<input type="date" name="tanggal_kembali">
-			<input type="submit" class="btn btn-success" value="FILTER" name='<?php echo $klik?>'>    
-      			<a href="tabel_peminjaman.php" class='btn btn-dark'>RESET</a>
-    		</form>
+
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-8 text-center">
+				<p>
+				<a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+					Filter
+				</a></p>					
+				<div class="collapse" id="collapseExample">
+					<div class="card card-body">
+						<form method="get">
+							<label>PILIH TANGGAL Kembali</label>
+							<input type="date" name="tanggal_kembali" class='date'>
+							<input type="submit" class="btn btn-success" value="FILTER" name='<?php echo $klik?>'>    
+										<a href="tabel_peminjaman.php" class='btn btn-dark'>RESET</a>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		
 	<div class="row">
             		<div class="col-4"></div>
             			<div class="col-4">
-              			<input type="text" class='form-control' id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama..." title="Type in a name">
+              			<input type="text" class='form-control' id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama peminjam..." title="Type in a name">
             			</div>
             		<div class="col-4"></div>
         	</div>
@@ -88,8 +103,8 @@
 					<tr class="bg-info" class="header">
 						<th>Nama Barang</th>
 						<th>Jumlah</th>
-						<th>Tanggal Peminjaman</th>
-						<th>Tanggal Kembali</th>
+						<th onclick="sortTable(2)">Tanggal Pinjam  <i class="material-icons align-text-top">sort</i></th>
+						<th onclick="sortTable(3)">Tanggal Kembali  <i class="material-icons align-text-top">sort</i></th>
 						<th>Nama Peminjam</th>
 						<th>Kontak Peminjam</th>
 						<th>Kontak Cadangan</th>
@@ -156,9 +171,9 @@
 <script type='text/javascript'>
 
     $('.date').datepicker({
-      format: "yyyy",
-      startView : 2,
-      minViewMode: 2,
+      format: "yyyy-mm-dd",
+      startView : 0,
+      minViewMode: 0,
       autoclose: true
     });
 
@@ -180,6 +195,60 @@ function myFunction() {
         tr[i].style.display = "none";
       }
     }       
+  }
+}
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;      
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
   }
 }
 </script>

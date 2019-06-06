@@ -11,7 +11,7 @@
 ?>
 <?php
 include("connect.php");
-$idErr = $namabarangErr = $jumlahErr = $tahunbeliErr = $ownerErr = $lokasiErr = "";
+$idErr = $namabarangErr = $jumlahErr = $tahunbeliErr = $ownerErr = $lokasiErr = $jumlah_rusakErr= $jumlah_servisErr= "";
 
 if(isset($_POST['update']))
 {  
@@ -30,6 +30,26 @@ if(isset($_POST['update']))
           $jumlahErr = "";
           if (!preg_match("/^[0-9]*$/",$jumlah)) {
             $jumlahErr = "Isikan dengan angka!";
+             
+          }
+        }
+        if (empty($_POST["jumlah_rusak"])) {
+          $jumlah_rusakErr = "Jumlah harus di isi!";
+        } else {
+          $jumlah_rusak = test_input($_POST["jumlah"]);
+          $jumlah_rusakErr = "";
+          if (!preg_match("/^[0-9]*$/",$jumlah_rusak)) {
+            $jumlah_rusakErr = "Isikan dengan angka!";
+             
+          }
+        }
+        if (empty($_POST["jumlah_servis"])) {
+          $jumlah_servisErr = "Jumlah harus di isi!";
+        } else {
+          $jumlah_servis = test_input($_POST["jumlah"]);
+          $jumlah_servisErr = "";
+          if (!preg_match("/^[0-9]*$/",$jumlah_servis)) {
+            $jumlah_servisErr = "Isikan dengan angka!";
              
           }
         }
@@ -100,6 +120,8 @@ while($user_data = mysqli_fetch_array($result))
 {
     $nama = $user_data['nama_barang'];
     $jumlah = $user_data['jumlah'];
+    $jumlah_rusak = $user_data['jumlah_rusak'];
+    $jumlah_servis = $user_data['jumlah_servis'];
     $tahun = $user_data['tahun_beli'];
     $owner = $user_data['owner'];
     $lokasi = $user_data['lokasi'];
@@ -142,6 +164,16 @@ while($user_data = mysqli_fetch_array($result))
         <div class="form-group">
           <label>Jumlah :</label><span class="text-danger">* <?php echo $jumlahErr;?></span>
           <input class='form-control' type="number" name="jumlah" value="<?php echo $jumlah;?>">
+        </div>
+
+        <div class="form-group">
+          <label>Jumlah Rusak :</label><span class="text-danger">* <?php echo $jumlah_rusakErr;?></span>
+          <input class='form-control' type="number" name="jumlah" value="<?php echo $jumlah_rusak;?>">
+        </div>
+
+        <div class="form-group">
+          <label>Jumlah Servis :</label><span class="text-danger">* <?php echo $jumlah_servisErr;?></span>
+          <input class='form-control' type="number" name="jumlah" value="<?php echo $jumlah_servis;?>">
         </div>
 
         <div class="form-group">

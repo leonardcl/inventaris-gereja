@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $baca_id = mysqli_query($conn, "select max(id) from barang;");
   $b_id = mysqli_fetch_assoc($baca_id);
   $id = (int)$b_id['max(id)']+1;
-  $sql = "insert into barang VALUES( $id,'".$_POST['namabarang']."','".$_POST['jumlah']."','".$_POST['tahunbeli']."','".$_POST['owner']."','".$_POST['lokasi']."')";
+  $sql = "insert into barang VALUES( $id,'".$_POST['namabarang']."','".$_POST['jumlah']."',0,0,0,'".$_POST['tahunbeli']."','".$_POST['owner']."','".$_POST['lokasi']."')";
   
 
   if($namabarangErr == "" && $jumlahErr == "" && $tahunbeliErr == "" && $ownerErr == "" && $lokasiErr == "")

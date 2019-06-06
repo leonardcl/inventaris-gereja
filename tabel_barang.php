@@ -98,12 +98,20 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
             <div class="col-4"></div>
         </div>
         <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8">
+            <div class="col-1"></div>
+            <div class="col-10">
                 <table class='table table-hover'id="myTable">
 
                     <tr class="bg-info" class="header">
-                        <th>Nama Barang</th> <th>Jumlah</th> <th>Tahun Beli</th><th>Owner</th><th>Lokasi</th><th>Opsi</th>
+                        <th>Nama Barang</th> 
+                        <th>Jumlah</th> 
+                        <th>Rusak</th> 
+                        <th>Servis</th> 
+                        <th>Available</th> 
+                        <th>Tahun Beli</th>
+                        <th>Owner</th>
+                        <th>Lokasi</th>
+                        <th>Opsi</th>
                     </tr>
                     <?php  
                     if(isset($_POST['lokasi'])){
@@ -122,9 +130,13 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
                       }
                     while($user_data = mysqli_fetch_array($sql)) {  
                                         
+                        $available = $user_data['jumlah'] - $user_data['jumlah_rusak'] - $user_data['jumlah_servis'];
                         echo "<tr>";
                         echo "<td class='align-middle text-capitalize'>".$user_data['nama_barang']."</td>";
-                        echo "<td class='align-middle'>".$user_data['jumlah']."</td>";    
+                        echo "<td class='align-middle'>".$user_data['jumlah']."</td>";  
+                        echo "<td class='align-middle'>".$user_data['jumlah_rusak']."</td>";  
+                        echo "<td class='align-middle'>".$user_data['jumlah_servis']."</td>";  
+                        echo "<td class='align-middle'>".$available."</td>";    
                         echo "<td class='align-middle'>".$user_data['tahun_beli']."</td>";    
                         echo "<td class='align-middle'>".$user_data['owner']."</td>";    
                         echo "<td class='align-middle'>".$user_data['lokasi']."</td>";    

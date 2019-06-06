@@ -168,6 +168,7 @@ include('resource/navbar.php');
                 <label>Kontak Cadangan</label>
                 <input class='form-control' type="text" name="kontak_cadangan" value="<?php echo $kontak_cadangan;?>">
             </div>
+            <p><span class="text-danger">* required field</span></p>
             <input class='btn btn-primary'type="submit" name="update" value="Submit">
         </form>    
     </div>

@@ -7,7 +7,7 @@
     if (!isset($_SESSION['user_login'])) {
 		header("location:login.php");
     }
-    include('connect.php');
+    include('connect.php');    
 ?>
 
 <?php
@@ -72,7 +72,7 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
 	    <div class="row">
         <div class="col-1"></div>
         <div class="col-10">
-    <form method="get">
+    <form method="post">
 		<label>Pilih Lokasi</label>
 		<select class="form-control" name="lokasi" >
             <?php
@@ -106,8 +106,8 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
                         <th>Nama Barang</th> <th>Jumlah</th> <th>Tahun Beli</th><th>Owner</th><th>Lokasi</th><th>Opsi</th>
                     </tr>
                     <?php  
-                    if(isset($_GET['lokasi'])){
-                        $loc = $_GET['lokasi'];
+                    if(isset($_POST['lokasi'])){
+                        $loc = (string)$_POST['lokasi'];
                         echo $loc;
                         $sql = mysqli_query($conn,"select * from barang  where lokasi ='$loc'");
                         if($loc == ''){
@@ -123,7 +123,7 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
                     while($user_data = mysqli_fetch_array($sql)) {  
                                         
                         echo "<tr>";
-                        echo "<td class='align-middle'>".$user_data['nama_barang']."</td>";
+                        echo "<td class='align-middle text-capitalize'>".$user_data['nama_barang']."</td>";
                         echo "<td class='align-middle'>".$user_data['jumlah']."</td>";    
                         echo "<td class='align-middle'>".$user_data['tahun_beli']."</td>";    
                         echo "<td class='align-middle'>".$user_data['owner']."</td>";    

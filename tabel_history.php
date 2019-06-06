@@ -69,7 +69,7 @@
 							<td class='align-middle'>
 								<?php 
 									//echo $d['kontak_cadangan'];
-									if ($d['kontak_cadangan']==1) {
+									if ($d['status']==1) {
 										# code...
 										echo "<i class='material-icons align-text-top'>check</i>";
 									} else {

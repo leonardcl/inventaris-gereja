@@ -16,8 +16,12 @@ $sql_jumlah = mysqli_query($conn,"select * from barang where id = $id_brng");
   $owner=$data['owner'];
   $lokasi=$data['lokasi'];
 
+  $sql = "update history set status = 1 where id_peminjaman='$id'";
+
+
   $perintah = "UPDATE barang SET nama_barang='$nama',jumlah=$jumlah,jumlah_rusak=$jumlah_rusak,jumlah_pinjam=$jumlah_pinjam,jumlah_servis=$jumlah_servis,tahun_beli='$tahun', owner='$owner', lokasi='$lokasi' where id=$id_brng";
     $dum = mysqli_query($conn, $perintah);
+    $dum2= mysqli_query($conn, $sql);
   $result = mysqli_query($conn, "DELETE FROM peminjaman WHERE id_peminjaman=$id");
 header("Location:tabel_peminjaman.php");
 ?>

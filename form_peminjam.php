@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $b_id_his = mysqli_fetch_assoc($baca_id_his);
   $id= (int)$b_id_his['max(id_peminjaman)']+1;
   $sql = "insert into peminjaman VALUES( $id,'".$_POST['id_barang']."','".$_POST['jumlah']."','".$_POST['tanggal_peminjaman']."','".$_POST['tanggal_kembali']."','".$_POST['nama_peminjam']."','".$_POST['kontak_peminjam']."','".$_POST['kontak_cadangan']."')";
-  $sql_2 = "insert into history VALUES( $id,'".$_POST['id_barang']."','".$_POST['jumlah']."','".$_POST['tanggal_peminjaman']."','".$_POST['tanggal_kembali']."','".$_POST['nama_peminjam']."','".$_POST['kontak_peminjam']."','".$_POST['kontak_cadangan']."')";
+  $sql_2 = "insert into history VALUES( $id,'".$_POST['id_barang']."','".$_POST['jumlah']."','".$_POST['tanggal_peminjaman']."','".$_POST['tanggal_kembali']."','".$_POST['nama_peminjam']."','".$_POST['kontak_peminjam']."','".$_POST['kontak_cadangan']."',0,'Kondisi Baik')";
         
   $sql_jumlah = mysqli_query($conn,"select * from barang where id = $idbrng");
   $data = mysqli_fetch_assoc($sql_jumlah);

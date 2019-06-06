@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tabel Peminjaman</title>
-
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
 
 </head>
@@ -30,7 +30,7 @@
 	<div class="row">
 		<div class="col-12 text-center">
     		<h2 class='display-3'>Tabel History</h2>
-    	</div>	
+		</div>	
 	</div>
 		<div class="row">
 			<div class="col-12">
@@ -42,7 +42,8 @@
 						<th>Tanggal Kembali</th>
 						<th>Nama Peminjam</th>
 						<th>Kontak Peminjam</th>
-						<th>Kontak Cadangan</th>
+						<th>Status</th>
+						<th></th>
 						
 					</tr>
 					<?php 
@@ -59,13 +60,28 @@
 								$data1 = mysqli_query($conn,"select nama_barang from barang where id = $id_brng");
 								$d1 = mysqli_fetch_array($data1);
 							?>
-							<td><?php echo $d1['nama_barang']; ?></td>
-							<td><?php echo $d['jumlah']; ?></td>
-							<td><?php echo $d['tanggal_peminjaman']; ?></td>
-							<td><?php echo $d['tanggal_kembali']; ?></td>
-							<td><?php echo $d['nama_peminjam']; ?></td>
-							<td><?php echo $d['kontak_peminjam']; ?></td>
-							<td><?php echo $d['kontak_cadangan']; ?></td>
+							<td class='align-middle'><?php echo $d1['nama_barang']; ?></td>
+							<td class='align-middle'><?php echo $d['jumlah']; ?></td>
+							<td class='align-middle'><?php echo $d['tanggal_peminjaman']; ?></td>
+							<td class='align-middle'><?php echo $d['tanggal_kembali']; ?></td>
+							<td class='align-middle'><?php echo $d['nama_peminjam']; ?></td>
+							<td class='align-middle'><?php echo $d['kontak_peminjam']; ?></td>
+							<td class='align-middle'>
+								<?php 
+									//echo $d['kontak_cadangan'];
+									if ($d['kontak_cadangan']==1) {
+										# code...
+										echo "<i class='material-icons align-text-top'>check</i>";
+									} else {
+										# code...
+										echo "<i class='material-icons align-text-top'>clear</i>";
+									}
+									
+								?>
+							</td>
+							<td>
+							<button type="button" class="btn btn-danger" data-toggle="popover" data-trigger="focus" title="Kondisi Barang" data-content="<?php echo $d['kondisi']; ?>">More</button>
+							</td>
 							
 						</tr>
 						<?php 
@@ -87,8 +103,14 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.css">
+<script src="resource/bootstrap.min.js"></script>
 <script type='text/javascript'>
-
+	$('.popover-dismiss').popover({
+  trigger: 'focus'
+})
+	$(function () {
+  $('[data-toggle="popover"]').popover()
+})
     $('.date').datepicker({
       format: "yyyy",
       startView : 2,

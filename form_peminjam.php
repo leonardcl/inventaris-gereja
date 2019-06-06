@@ -39,6 +39,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {
       $jumlah = test_input($_POST["jumlah"]);
       $jumlahErr = "";
+      $idbrng = $_POST['id_barang'];
+      $sql_jumlah = mysqli_query($conn,"select * from barang where id = $idbrng");
+      $data = mysqli_fetch_assoc($sql_jumlah);
+      $available = $data['jumlah'] -  $data['jumlah_rusak'] - $data['jumlah_servis'] -$data['jumlah_pinjam'];
+      if ($available < $_POST["jumlah"]) {
+        # code...
+        $jumlahErr = "Barang sisa : ".(string)$available;
+      }
     if (!preg_match("/^[0-9]*$/", $jumlah)){
         $jumlahErr = "Isikan dengan angka!";
     }
@@ -90,7 +98,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $id= (int)$b_id_his['max(id_peminjaman)']+1;
   $sql = "insert into peminjaman VALUES( $id,'".$_POST['id_barang']."','".$_POST['jumlah']."','".$_POST['tanggal_peminjaman']."','".$_POST['tanggal_kembali']."','".$_POST['nama_peminjam']."','".$_POST['kontak_peminjam']."','".$_POST['kontak_cadangan']."')";
   $sql_2 = "insert into history VALUES( $id,'".$_POST['id_barang']."','".$_POST['jumlah']."','".$_POST['tanggal_peminjaman']."','".$_POST['tanggal_kembali']."','".$_POST['nama_peminjam']."','".$_POST['kontak_peminjam']."','".$_POST['kontak_cadangan']."')";
-  
+        
+  $sql_jumlah = mysqli_query($conn,"select * from barang where id = $idbrng");
+  $data = mysqli_fetch_assoc($sql_jumlah);
+  $id = $data['id'];
+  $nama=$data['nama_barang'];
+  $jumlah=$data['jumlah'];
+  $jumlah_servis=$data['jumlah_servis'];
+  $jumlah_pinjam=$data['jumlah_pinjam']+$_POST['jumlah'];
+  $jumlah_rusak=$data['jumlah_rusak'];
+  $tahun=$data['tahun_beli'];
+  $owner=$data['owner'];
+  $lokasi=$data['lokasi'];
+
+  $perintah = "UPDATE barang SET nama_barang='$nama',jumlah=$jumlah,jumlah_rusak=$jumlah_rusak,jumlah_pinjam=$jumlah_pinjam,jumlah_servis=$jumlah_servis,tahun_beli='$tahun', owner='$owner', lokasi='$lokasi' where id=$id";
+
 
   if($jumlahErr == "" && $kontak_peminjamErr == "" && $nama_peminjamErr == "" && $tanggal_kembaliErr == "" && $tanggal_peminjamErr == "")
 {
@@ -101,6 +123,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
     if (mysqli_query($conn, $sql_2)) {
+      echo "New record created successfully";
+    } else {
+      echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
+    if (mysqli_query($conn, $perintah)) {
       echo "New record created successfully";
     } else {
       echo "Error: " . $sql . "<br>" . mysqli_error($conn);

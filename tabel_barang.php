@@ -130,7 +130,7 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
                       }
                     while($user_data = mysqli_fetch_array($sql)) {  
                                         
-                        $available = $user_data['jumlah'] - $user_data['jumlah_rusak'] - $user_data['jumlah_servis'];
+                        $available = $user_data['jumlah'] - $user_data['jumlah_rusak'] - $user_data['jumlah_servis']-$user_data['jumlah_pinjam'];
                         echo "<tr>";
                         echo "<td class='align-middle text-capitalize'>".$user_data['nama_barang']."</td>";
                         echo "<td class='align-middle'>".$user_data['jumlah']."</td>";  

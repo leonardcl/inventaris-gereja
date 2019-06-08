@@ -31,11 +31,10 @@
     $id = $_GET['id'];
     $recent = mysqli_query($conn,"select * from peminjaman where id_peminjaman='$id'");
     $id_peminjaman = $id;
-    
+    $recent_history = mysqli_query($conn, "select * from history where id_peminjaman='$id'");
 
-
-    $id_peminjamErr = $id_barangErr = $jumlahErr = $tanggal_peminjamErr = $tanggal_kembaliErr = $nama_peminjamErr = $kontak_peminjamErr = $kontak_cadanganErr= "";
-    $id_peminjam = $id_barang = $jumlah = $tanggal_peminjam = $tanggal_kembali = $nama_peminjam = $kontak_peminjam = $kontak_cadangan= "";
+    $id_peminjamErr = $id_barangErr = $jumlahErr = $tanggal_peminjamErr = $tanggal_kembaliErr = $nama_peminjamErr = $kontak_peminjamErr = $kontak_cadanganErr= $kondisi ="";
+    $id_peminjam = $id_barang = $jumlah = $tanggal_peminjam = $tanggal_kembali = $nama_peminjam = $kontak_peminjam = $kontak_cadangan= $kondisiErr = "";
 
     if(isset($_POST['update'])) {
         if (empty($_POST["jumlah"])){
@@ -87,18 +86,28 @@
             
     }
 }
+if (empty($_POST["kondisi"])) {
+    $kondisiErr = "Kondisi Barang wajib diisi!";
+} else {
+    $kondisi = test_input($_POST["kondisi"]);
+    // check if phone number is integer
+    $kondisiErr = "";
+}
+
 
 
         
         $sql = "update peminjaman set id_barang='".$_POST['id_barang']."', jumlah = '".$_POST['jumlah']."', tanggal_peminjaman ='".$_POST['tanggal_peminjaman']."', tanggal_kembali='".$_POST['tanggal_kembali']."', nama_peminjam = '".$_POST['nama_peminjam']."', kontak_peminjam = '".$_POST['kontak_peminjam']."', kontak_cadangan = '".$_POST['kontak_cadangan']."' where id_peminjaman='$id_peminjaman'";
+        $sql_kon = "update history set kondisi='".$_POST['kondisi']."' where id_peminjaman = '$id_peminjaman'";
 
         
         
 
-        if($jumlahErr == "" && $kontak_peminjamErr == "" && $nama_peminjamErr == "" && $tanggal_kembaliErr == "" && $tanggal_peminjamErr == "")
+        if($jumlahErr == "" && $kontak_peminjamErr == "" && $nama_peminjamErr == "" && $tanggal_kembaliErr == "" && $tanggal_peminjamErr == "" && $kondisiErr == "")
     {
         // echo "ehllo";
             if (mysqli_query($conn, $sql)) {
+                $dummy = mysqli_query($conn, $sql_kon);
                 header("Location: tabel_peminjaman.php");
                 echo $nama_peminjam;
                 echo $id_peminjaman;
@@ -123,6 +132,7 @@
     include('resource/navbar.php');
 
 	while($d = mysqli_fetch_array($recent)){
+        $d_history = mysqli_fetch_assoc($recent_history);
 		?>
 		<div class="container">
   <div class="row">
@@ -184,6 +194,10 @@
                 <div class="form-group">
                     <label>Kontak Cadangan</label><span class="text-danger">* <?php echo $kontak_cadanganErr;?></span>
                     <input class='form-control' type="text" name="kontak_cadangan" value="<?php echo $d['kontak_cadangan'];?>" >
+                </div>
+                <div class="form-group">
+                    <label>Kondisi Barang Kembali</label><span class="text-danger">* <?php echo $kondisiErr;?></span>
+                    <input class='form-control' type="text" name="kondisi" value="<?php echo $d_history['kondisi'];?>" >
                 </div>
                 <input class='btn btn-primary'type="submit" name="update" value="Submit">
             </form>

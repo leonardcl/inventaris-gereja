@@ -148,7 +148,7 @@ while($user_data = mysqli_fetch_array($result))
 <div class="container">
   <div class="row">
     <div class="col-12 text-center">
-    <h2 class='display-3'>Form Data Barang</h2>
+    <h2 class='display-3'>Edit Data Barang</h2>
     </div>
   </div>
   <div class="row">
@@ -182,15 +182,46 @@ while($user_data = mysqli_fetch_array($result))
         </div>
 
         <div class="form-group">
-          <label>Owner :</label><span class="text-danger">* <?php echo $ownerErr;?></span>
-          <input class='form-control' type="char" name="owner" value="<?php echo $owner;?>">
+            <label>Owner :</label><span class="text-danger">* <?php echo $ownerErr;?></span>
+            <select name="owner" id="" class='form-control' value="<?php echo $owner;?>" type="text" readonly>
+            <?php 
+                $sqldata = mysqli_query($conn, "select * from owner");
+                while($data = mysqli_fetch_assoc($sqldata))
+                {
+                    if ($owner==$data['id']) {
+                        # code...
+                        echo "<option value=",$data['id']," selected>",$data['owner'],"</option>";
+                    }
+                    else {
+                        # code...
+                        echo "<option value=",$data['id'],">",$data['owner'],"</option>";
+                    }
+                
+                }
+            ?>
+            </select>
         </div>
 
         <div class="form-group">
-          <label>Lokasi :</label><span class="text-danger">* <?php echo $lokasiErr;?></span>
-          <input class='form-control' type="char" name="lokasi" value="<?php echo $lokasi;?>">
+            <label>Lokasi :</label><span class="text-danger">* <?php echo $lokasiErr;?></span>
+            <select name="lokasi" id="" class='form-control' value="<?php echo $lokasi;?>" type="text" readonly>
+            <?php 
+                $sqldata = mysqli_query($conn, "select * from lokasi");
+                while($data = mysqli_fetch_assoc($sqldata))
+                {
+                    if ($lokasi==$data['id']) {
+                        # code...
+                        echo "<option value=",$data['id']," selected>",$data['lokasi'],"</option>";
+                    }
+                    else {
+                        # code...
+                        echo "<option value=",$data['id'],">",$data['lokasi'],"</option>";
+                    }
+                
+                }
+            ?>
+            </select>
         </div>
-
         <p><span class="text-danger">* required field</span></p>
         <input class='btn btn-primary'type="submit" name="update" value="Submit">
         <input type="hidden" name="id" value=<?php echo $_GET['id'];?>> 

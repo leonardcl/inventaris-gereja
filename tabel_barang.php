@@ -137,9 +137,15 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
                         echo "<td class='align-middle'>".$user_data['jumlah_rusak']."</td>";  
                         echo "<td class='align-middle'>".$user_data['jumlah_servis']."</td>";  
                         echo "<td class='align-middle'>".$available."</td>";    
+                        $owner = $user_data['owner'];
+								        $data1 = mysqli_query($conn,"select owner from owner where id = $owner");
+								        $d1 = mysqli_fetch_array($data1);
                         echo "<td class='align-middle'>".$user_data['tahun_beli']."</td>";    
-                        echo "<td class='align-middle'>".$user_data['owner']."</td>";    
-                        echo "<td class='align-middle'>".$user_data['lokasi']."</td>";    
+                        echo "<td class='align-middle'>".$d1['owner']."</td>"; 
+                        $lokasi = $user_data['lokasi'];
+								        $data2 = mysqli_query($conn,"select lokasi from lokasi where id = $lokasi");
+								        $d2 = mysqli_fetch_array($data2);   
+                        echo "<td class='align-middle'>".$d2['lokasi']."</td>";    
                         echo "<td><a class='btn btn-primary' href='edit_barang.php?id=$user_data[id]'>Edit</a> <a class='btn btn-danger' href='delete_barang.php?id=$user_data[id]'>Delete</a></td></tr>";        
                     }
                     ?>

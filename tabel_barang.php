@@ -22,7 +22,12 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Barang</title>
-    <link rel='stylesheet' href='resource/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+
+    <link rel='stylesheet' href='resource/bootstrap.min.css'>
+
+<link rel="stylesheet" href="resource/icon.css">
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+
     <style>
 * {
   box-sizing: border-box;
@@ -108,7 +113,7 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
                         <th>Rusak</th> 
                         <th>Servis</th> 
                         <th>Available</th> 
-                        <th>Tahun Beli</th>
+                        <th onclick="sortTable(5)">Tahun Beli <i class="material-icons align-text-top">sort</i></th>
                         <th>Owner</th>
                         <th>Lokasi</th>
                         <th>Opsi</th>
@@ -116,7 +121,6 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
                     <?php  
                     if(isset($_POST['lokasi'])){
                         $loc = (string)$_POST['lokasi'];
-                        echo $loc;
                         $sql = mysqli_query($conn,"select * from barang  where lokasi ='$loc'");
                         if($loc == ''){
                             $sql = mysqli_query($conn,"select * from barang");
@@ -176,6 +180,61 @@ function myFunction() {
         tr[i].style.display = "none";
       }
     }       
+  }
+}
+
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;      
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
   }
 }
 </script>

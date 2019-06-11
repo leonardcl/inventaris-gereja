@@ -9,7 +9,7 @@ try{
     while($d = mysqli_fetch_array($data)){
 
         $idbrng = $d['id_barang'];
-        $id_brng = $d['id_barang'];
+        $id_brng = $idbrng;
 							
 								$data1 = mysqli_query($conn,"select nama_barang from barang where id = $id_brng");
 								$d1 = mysqli_fetch_array($data1);

@@ -36,7 +36,7 @@ if(isset($_POST['update']))
         if (empty($_POST["jumlah_rusak"])) {
           $jumlah_rusakErr = "Jumlah harus di isi!";
         } else {
-          $jumlah_rusak = test_input($_POST["jumlah"]);
+          $jumlah_rusak = test_input($_POST["jumlah_rusak"]);
           $jumlah_rusakErr = "";
           if (!preg_match("/^[0-9]*$/",$jumlah_rusak)) {
             $jumlah_rusakErr = "Isikan dengan angka!";
@@ -46,7 +46,7 @@ if(isset($_POST['update']))
         if (empty($_POST["jumlah_servis"])) {
           $jumlah_servisErr = "Jumlah harus di isi!";
         } else {
-          $jumlah_servis = test_input($_POST["jumlah"]);
+          $jumlah_servis = test_input($_POST["jumlah_servis"]);
           $jumlah_servisErr = "";
           if (!preg_match("/^[0-9]*$/",$jumlah_servis)) {
             $jumlah_servisErr = "Isikan dengan angka!";
@@ -81,8 +81,10 @@ if(isset($_POST['update']))
         $tahun=$_POST['tahunbeli'];
         $owner=$_POST['owner'];
         $lokasi=$_POST['lokasi'];
+        $jumlah_rusak= $_POST['jumlah_rusak'];
+        $jumlah_servis = $_POST['jumlah_servis'];
 
-        $perintah = "UPDATE barang SET nama_barang='$nama',jumlah=$jumlah,tahun_beli='$tahun', owner='$owner', lokasi='$lokasi' where id=$id";
+        $perintah = "UPDATE barang SET nama_barang='$nama',jumlah=$jumlah,jumlah_servis = $jumlah_servis, jumlah_rusak = $jumlah_rusak,tahun_beli='$tahun', owner='$owner', lokasi='$lokasi' where id=$id";
         $result = mysqli_query($conn, $perintah);
       
         if($namabarangErr == "" && $jumlahErr == "" && $tahunbeliErr == "" && $ownerErr == "" && $lokasiErr == "")
@@ -168,12 +170,12 @@ while($user_data = mysqli_fetch_array($result))
 
         <div class="form-group">
           <label>Jumlah Rusak :</label><span class="text-danger">* <?php echo $jumlah_rusakErr;?></span>
-          <input class='form-control' type="number" name="jumlah" value="<?php echo $jumlah_rusak;?>">
+          <input class='form-control' type="number" name="jumlah_rusak" value="<?php echo $jumlah_rusak;?>">
         </div>
 
         <div class="form-group">
           <label>Jumlah Servis :</label><span class="text-danger">* <?php echo $jumlah_servisErr;?></span>
-          <input class='form-control' type="number" name="jumlah" value="<?php echo $jumlah_servis;?>">
+          <input class='form-control' type="number" name="jumlah_servis" value="<?php echo $jumlah_servis;?>">
         </div>
 
         <div class="form-group">

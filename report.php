@@ -6,18 +6,19 @@ try{
     // Replace your-hostname, your-db, your-username, your-password according to your database
     include('connect.php');
     $data = mysqli_query($conn,"SELECT * FROM history group by id_barang");
-    while($d = mysqli_fetch_array($data)){
+	while($d5 = mysqli_fetch_array($data)){
 
-        $idbrng = $d['id_barang'];
-        $id_brng = $idbrng;
-							
-								$data1 = mysqli_query($conn,"select nama_barang from barang where id = $id_brng");
-								$d1 = mysqli_fetch_array($data1);
-        $data2= mysqli_query($conn, "SELECT count(id_barang) FROM peminjaman where id_barang = $idbrng ");
-        $d2 = mysqli_fetch_array($data2);
-        array_push($dataPoints, array("label" => $d1['nama_barang'], "y" => $d2[0]));
- $conn = null;
+        $idbrng5 = $d5['id_barang'];
+		$id_brng5 = (int)$idbrng5;
+		$data15 = mysqli_query($conn,"select nama_barang from barang where id= $idbrng5");
+		$d15=mysqli_fetch_assoc($data15);
+
+        $data25= mysqli_query($conn, "select count(id_barang) from history where id_barang=$idbrng5");
+		$d25 = mysqli_fetch_assoc($data25);
+
+        array_push($dataPoints, array("label" => $d15['nama_barang'], "y" => $d25['count(id_barang)']));
 }
+$conn = null;
 }
 
 
@@ -47,7 +48,10 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	exportEnabled: true,
 	theme: "light1", // "light1", "light2", "dark1", "dark2"
 	title:{
-		text: "Jumlah Peminjaman"
+		text: ""
+	},
+	axisY: {
+		interval : 1,
 	},
 	data: [{
 		type: "column", //change type to bar, line, area, pie, etc  
@@ -68,7 +72,7 @@ chart.render();
 	<div class="container-fluid">
 	<div class="row">
 		<div class="col-12 text-center">
-    		<h2 class='display-3'>Report</h2>
+    		<h2 class='display-2'>Report</h2>
     	</div>	
 	</div>
 		<div class="row">
@@ -82,7 +86,7 @@ chart.render();
 					<?php 
 					include 'connect.php';
 					$no = 1;
-					$data = mysqli_query($conn,"SELECT * FROM peminjaman group by id_barang");
+					$data = mysqli_query($conn,"SELECT * FROM history group by id_barang");
 					while($d = mysqli_fetch_array($data)){
 					?>
 						<tr>
@@ -92,10 +96,10 @@ chart.render();
 							$data1 = mysqli_query($conn,"select nama_barang from barang where id = $idbrng");
 								$d1 = mysqli_fetch_array($data1);
 							echo "<td>",$d1['nama_barang'],"</td>";
-							$data2= mysqli_query($conn, "SELECT count(id_barang) FROM peminjaman where id_barang = $idbrng ");
+							$data2= mysqli_query($conn, "SELECT count(id_barang) FROM history where id_barang = $idbrng ");
 							$d2 = mysqli_fetch_array($data2);
 							echo "<td>",$d2[0],"</td>";
-
+							array_push($dataPoints, array("label" => $d1[0], "y" => $d2[0]));
 							?>
 						</tr>
 						<?php 
@@ -103,6 +107,11 @@ chart.render();
 					?>
 				</table>		
 			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-12 text-center">
+			<h4 class="display-4">Grafik</h4>
 		</div>
 	</div>
 	<div id="chartContainer" style="height: 370px; width: 100%;"></div>

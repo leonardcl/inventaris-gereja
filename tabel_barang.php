@@ -114,8 +114,8 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
                         <th>Servis</th> 
                         <th>Available</th> 
                         <th onclick="sortTable(5)">Tahun Beli <i class="material-icons align-text-top">sort</i></th>
-                        <th>Owner</th>
-                        <th>Lokasi</th>
+                        <th onclick="sortTable(5)">Owner <i class="material-icons align-text-top">sort</i></th>
+                        <th onclick="sortTable(5)">Lokasi <i class="material-icons align-text-top">sort</i></th>
                         <th>Opsi</th>
                     </tr>
                     <?php  

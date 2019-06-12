@@ -108,14 +108,14 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
                 <table class='table table-hover'id="myTable">
 
                     <tr class="bg-info" class="header">
-                        <th>Nama Barang</th> 
+                        <th onclick="sortTable(0)">Nama Barang<i class="material-icons align-text-top">sort</i></th>
                         <th>Jumlah</th> 
                         <th>Rusak</th> 
                         <th>Servis</th> 
                         <th>Available</th> 
                         <th onclick="sortTable(5)">Tahun Beli <i class="material-icons align-text-top">sort</i></th>
-                        <th onclick="sortTable(5)">Owner <i class="material-icons align-text-top">sort</i></th>
-                        <th onclick="sortTable(5)">Lokasi <i class="material-icons align-text-top">sort</i></th>
+                        <th onclick="sortTable(6)">Owner <i class="material-icons align-text-top">sort</i></th>
+                        <th onclick="sortTable(7)">Lokasi <i class="material-icons align-text-top">sort</i></th>
                         <th>Opsi</th>
                     </tr>
                     <?php  

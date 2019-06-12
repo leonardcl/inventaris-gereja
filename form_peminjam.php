@@ -24,6 +24,7 @@
 
 
 <?php
+include('resource/navbar.php'); 
 
 if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
@@ -112,25 +113,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $lokasi=$data['lokasi'];
 
   $perintah = "UPDATE barang SET nama_barang='$nama',jumlah=$jumlah,jumlah_rusak=$jumlah_rusak,jumlah_pinjam=$jumlah_pinjam,jumlah_servis=$jumlah_servis,tahun_beli='$tahun', owner='$owner', lokasi='$lokasi' where id=$id";
-
+  $total = 0;
 
   if($jumlahErr == "" && $kontak_peminjamErr == "" && $nama_peminjamErr == "" && $tanggal_kembaliErr == "" && $tanggal_peminjamErr == "")
 {
   // echo "ehllo";
     if (mysqli_query($conn, $sql)) {
-      echo "New record created successfully";
+      $total+=1;
     } else {
       echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
     if (mysqli_query($conn, $sql_2)) {
-      echo "New record created successfully";
+      $total+=1;
     } else {
       echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
     if (mysqli_query($conn, $perintah)) {
-      echo "New record created successfully";
+      $total+=1;
     } else {
       echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
+    if ($total == 3) {
+      # code...
+      echo"<div class='alert alert-success text-center' role='alert'>Sukses Memasukan data</div>";
     }
 }
 else {
@@ -143,7 +148,7 @@ function test_input($data) {
   $data = htmlspecialchars($data);
   return $data;
 }
-include('resource/navbar.php');
+
 ?>
 
 <div class="container">

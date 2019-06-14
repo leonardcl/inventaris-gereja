@@ -74,34 +74,50 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
             </div>
         </div>
 	    
-	    <div class="row">
-        <div class="col-1"></div>
-        <div class="col-10">
-    <form method="post">
-		<label>Pilih Lokasi</label>
-		<select class="form-control" name="lokasi" >
-            <?php
-            $sqldata = mysqli_query($conn, "select * from barang");
-            while($data = mysqli_fetch_assoc($sqldata))
-            {
-                echo"<option value=",$data['lokasi'],">",$data['lokasi'],"</option>";
-            }
-            ?>
-        </select>
-		<input type="submit" class="btn btn-success" value="FILTER" name='<?php echo $klik?>'>    
-      	<a href="tabel_barang.php" class='btn btn-dark'>RESET</a>
-    	</form>    
-        </div>
-    </div>
-	    
+
         <div class="row">
-            <div class="col-4"></div>
+            <div class="col-2"></div>
+            <div class="col-2"><i class="material-icons align-text-top"></i>
+            <a href="form_barang.php" class='btn btn-dark ' style='margin-top: 20px;margin-left: 70px'><i class="material-icons align-text-top">playlist_add</i>ADD ITEM</a>
+            </div>
             <div class="col-4">
               <input type="text" class='form-control' id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama..." title="Type in a name">
-
             </div>
-            <div class="col-4"></div>
+            <div class="col-1 align-middle">
+                <button style='margin-top: 20px;' href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" type="button" class="btn btn-primary align-middle " data-toggle="collapse" data-target="#demo">Filter</button>
+                </div>
+                <div class="col-3"></div>
         </div>
+        
+        <div class="row" >
+          <div class="col-2"></div>
+          <div class="col-8 text-center">
+          <div id="demo" class="collapse" id="collapseExample">
+					<div class="card card-body ">
+          <form method="post">
+            <label>Pilih Lokasi</label>
+            <select class="form-control" name="lokasi" >
+              <?php
+                $sqldata = mysqli_query($conn, "select * from barang");
+                while($data = mysqli_fetch_assoc($sqldata))
+                {
+                  echo"<option value=",$data['lokasi'],">",$data['lokasi'],"</option>";
+                }
+              ?>
+            </select>
+            <br>
+		      <input type="submit" class="btn btn-success" value="FILTER" name='<?php echo $klik?>'>    
+          <a href="tabel_barang.php" class='btn btn-dark' style='margin-top: 20px;'>RESET</a>
+          </form>    
+        </div>
+        </div>
+        </div>
+        
+    </div>
+    
+      
+	  <br>
+        
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10">
@@ -161,6 +177,7 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
 
     <script src="resource/jquery-3.3.1.slim.min.js" ></script>
 <script src="resource/popper.min.js" ></script>
+<script src="resource/bootstrap1.min.js"></script>
 <script src="resource/bootstrap.min.js" ></script>
 <script src="resource/bootstrap.bundle.min.js"></script>
     <script>

@@ -121,7 +121,7 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10">
-                <table class='table table-hover'id="myTable">
+                <table class='table table-hover table-sm'id="myTable">
                     <thead>
                     <tr class="bg-info" class="header">
                         <th onclick="sortTable(0)">Nama Barang<i class="material-icons align-text-top">sort</i></th>

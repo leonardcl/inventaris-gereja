@@ -81,7 +81,7 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
             <a href="form_barang.php" class='btn btn-dark ' style='margin-top: 20px;margin-left: 65px'><i class="material-icons align-text-top">playlist_add</i>ADD ITEM</a>
             </div>
             <div class="col-4">
-              <input type="text" class='form-control' id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama..." title="Type in a name">
+              <input type="text" class='form-control' id="myInput" onkeyup="myFunction()" placeholder="Cari..." title="Type in a name">
             </div>
             <div class="col-1 align-middle">
                 <button style='margin-top: 20px;' href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" type="button" class="btn btn-primary align-middle " data-toggle="collapse" data-target="#demo">Filter</button>
@@ -122,7 +122,7 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
             <div class="col-1"></div>
             <div class="col-10">
                 <table class='table table-hover'id="myTable">
-
+                    <thead>
                     <tr class="bg-info" class="header">
                         <th onclick="sortTable(0)">Nama Barang<i class="material-icons align-text-top">sort</i></th>
                         <th>Jumlah</th> 
@@ -133,7 +133,10 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
                         <th onclick="sortTable(6)">Owner <i class="material-icons align-text-top">sort</i></th>
                         <th onclick="sortTable(7)">Lokasi <i class="material-icons align-text-top">sort</i></th>
                         <th>Opsi</th>
+                        
                     </tr>
+                    </thead>
+                    <tbody id="myTable1">
                     <?php  
                     if(isset($_POST['lokasi'])){
                         $loc = (string)$_POST['lokasi'];
@@ -169,6 +172,7 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
                         echo "<td><a class='btn btn-primary' href='edit_barang.php?id=$user_data[id]'>Edit</a> <a class='btn btn-danger' href='delete_barang.php?id=$user_data[id]'>Delete</a></td></tr>";        
                     }
                     ?>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -180,25 +184,26 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
 <script src="resource/bootstrap1.min.js"></script>
 <script src="resource/bootstrap.min.js" ></script>
 <script src="resource/bootstrap.bundle.min.js"></script>
+<script src="resource/jquery.min.js"></script>
     <script>
-function myFunction() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
-}
+// function myFunction() {
+//   var input, filter, table, tr, td, i, txtValue;
+//   input = document.getElementById("myInput");
+//   filter = input.value.toUpperCase();
+//   table = document.getElementById("myTable");
+//   tr = table.getElementsByTagName("tr");
+//   for (i = 0; i < tr.length; i++) {
+//     td = tr[i].getElementsByTagName("td")[0];
+//     if (td) {
+//       txtValue = td.textContent || td.innerText;
+//       if (txtValue.toUpperCase().indexOf(filter) > -1) {
+//         tr[i].style.display = "";
+//       } else {
+//         tr[i].style.display = "none";
+//       }
+//     }       
+//   }
+// }
 
 function sortTable(n) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -254,6 +259,16 @@ function sortTable(n) {
     }
   }
 }
+</script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable1 tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
 </script>
 </body>
 </html>

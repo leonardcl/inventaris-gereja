@@ -109,7 +109,7 @@
             <a href="form_peminjam.php" class='btn btn-dark ' style='margin-top: 20px;margin-left: 60px'><i class="material-icons align-text-top">playlist_add</i>ADD ITEM</a>
             </div>
             			<div class="col-4">
-              			<input type="text" class='form-control' id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama peminjam..." title="Type in a name">
+              			<input type="text" class='form-control' id="myInput" onkeyup="myFunction()" placeholder="Cari..." title="Type in a name">
             			</div>
             		<div class="col-1 align-middle">
                 <button style='margin-top: 20px;' href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" type="button" class="btn btn-primary align-middle " data-toggle="collapse" data-target="#demo">Filter</button>
@@ -150,6 +150,7 @@
 						<th>Kontak Cadangan</th>
 						<th>Opsi</th>
 					</tr>
+          <tbody id='myTable1'>
 					<?php 
 					include 'connect.php';
 					$no = 1;
@@ -208,6 +209,7 @@
 						<?php 
 					}
 					?>
+          </tbody>
 				</table>		
 			</div>
 		</div>
@@ -230,6 +232,7 @@
 <script src="resource/bootstrap.bundle.min.js"></script>
 <script type='text/javascript' src="resource/bootstrap-datepicker.min.js"></script>
 <script src="resource/bootstrap1.min.js"></script>
+<script src="resource/jquery.min.js"></script>
 <link rel="stylesheet" href="resource/bootstrap-datepicker3.css">
 <script type='text/javascript'>
 $('.collapse').collapse();
@@ -245,24 +248,24 @@ $('#myCollapsible').collapse({
 
 </script>
 <script>
-function myFunction() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[4];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
-}
+// function myFunction() {
+//   var input, filter, table, tr, td, i, txtValue;
+//   input = document.getElementById("myInput");
+//   filter = input.value.toUpperCase();
+//   table = document.getElementById("myTable");
+//   tr = table.getElementsByTagName("tr");
+//   for (i = 0; i < tr.length; i++) {
+//     td = tr[i].getElementsByTagName("td")[4];
+//     if (td) {
+//       txtValue = td.textContent || td.innerText;
+//       if (txtValue.toUpperCase().indexOf(filter) > -1) {
+//         tr[i].style.display = "";
+//       } else {
+//         tr[i].style.display = "none";
+//       }
+//     }       
+//   }
+// }
 function sortTable(n) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById("myTable");
@@ -317,6 +320,16 @@ function sortTable(n) {
     }
   }
 }
+</script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable1 tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
 </script>
 </body>
 </html>

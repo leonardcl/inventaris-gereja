@@ -73,12 +73,15 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
                 <h2 class='display-3'>Tabel Barang</h2>  
             </div>
         </div>
-	    
+        <div class="form-group">
+                    <label>Jumlah</label><span class="text-danger">* <?php echo $jumlahErr;?></span>
+                    <input class='form-control' type="num" name="jumlah" value="<?php echo $d['jumlah'];?>" readonly>
+                </div>
 
         <div class="row">
             <div class="col-2"></div>
             <div class="col-2"><i class="material-icons align-text-top"></i>
-            <a href="form_barang.php" class='btn btn-dark ' style='margin-top: 20px;margin-left: 70px'><i class="material-icons align-text-top">playlist_add</i>ADD ITEM</a>
+            <a href="form_barang.php" class='btn btn-dark ' style='margin-top: 20px;margin-left: 65px'><i class="material-icons align-text-top">playlist_add</i>ADD ITEM</a>
             </div>
             <div class="col-4">
               <input type="text" class='form-control' id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama..." title="Type in a name">

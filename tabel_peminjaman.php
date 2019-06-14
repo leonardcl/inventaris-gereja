@@ -103,12 +103,18 @@
 		</div>
 
 	<div class="row">
-            		<div class="col-4"></div>
+  <div class="col-2"></div>
+            <div class="col-2"><i class="material-icons align-text-top"></i>
+            <a href="form_peminjam.php" class='btn btn-dark ' style='margin-top: 20px;margin-left: 70px'><i class="material-icons align-text-top">playlist_add</i>ADD ITEM</a>
+            </div>
             			<div class="col-4">
               			<input type="text" class='form-control' id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama peminjam..." title="Type in a name">
             			</div>
             		<div class="col-1 align-middle">
                 <button style='margin-top: 20px;' href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" type="button" class="btn btn-primary align-middle " data-toggle="collapse" data-target="#demo">Filter</button>
+                </div>
+                <div class="row">
+                <a href="tabel_barang.php" class='btn btn-dark' style='margin-top: 20px; margin-bottom: 47px;'>RESET</a>
                 </div>
                 <div class="col-3"></div>
         	</div>
@@ -123,7 +129,6 @@
 							<label>PILIH TANGGAL Kembali</label>
 							<input type="date" name="tanggal_kembali" class='date'>
 							<input type="submit" class="btn btn-success" value="FILTER" name='<?php echo $klik?>'>    
-										<a href="tabel_peminjaman.php" class='btn btn-dark'>RESET</a>
 						</form>
 					</div>
         </div>

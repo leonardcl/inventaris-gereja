@@ -185,7 +185,7 @@
 							<td><?php echo $d['kontak_peminjam']; ?></td>
 							<td><?php echo $d['kontak_cadangan']; ?></td>
 							<td>
-              <a style='margin:0;' class='btn btn-success btn-sm' href="edit_peminjaman.php?id=<?php echo $d['id_peminjaman']; ?>"><i class='material-icons align-text-top'>done_outline</i></a>
+              <a style='margin:0;' class='btn btn-success btn-sm' href="form_barang_kembali.php?id=<?php echo $d['id_peminjaman']; ?>"><i class='material-icons align-text-top'>done_outline</i></a>
 								<a style='margin:0;' class='btn btn-primary btn-sm' href="edit_peminjaman.php?id=<?php echo $d['id_peminjaman']; ?>"><i class='material-icons align-text-top'>create</i></a>
                 
         

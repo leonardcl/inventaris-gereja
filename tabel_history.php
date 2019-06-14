@@ -80,7 +80,7 @@
 								?>
 							</td>
 							<td>
-							<button type="button" class="btn btn-danger" data-toggle="popover" data-trigger="focus" title="Kondisi Barang" data-content="<?php echo $d['kondisi']; ?>">More</button>
+							<button type="button" class="btn btn-danger" data-toggle="popover" data-trigger="focus" title="Jumlah barang rusak saat kembali" data-content="<?php echo $d['kondisi']; ?>">More</button>
 							</td>
 							
 						</tr>

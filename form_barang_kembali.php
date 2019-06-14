@@ -34,55 +34,7 @@
     $id_peminjam = $id_barang = $jumlah = $tanggal_peminjam = $tanggal_kembali = $nama_peminjam = $kontak_peminjam = $kontak_cadangan= $kondisiErr = "";
 
     if(isset($_POST['update'])) {
-        if (empty($_POST["jumlah"])){
-            $jumlahErr = "Jumlah harus diisi!";
-    } else {
-            $jumlah = test_input($_POST["jumlah"]);
-            $jumlahErr = "";
-        if (!preg_match("/^[0-9]*$/", $jumlah)){
-                $jumlahErr = "Isikan dengan angka!";
-        }
-    }
         
-    if (empty($_POST["tanggal_peminjaman"])) {
-        $tanggal_peminjamErr = "Tanggal peminjam harus diisi!";
-    }else {
-            $tanggal_peminjam = test_input($_POST["tanggal_peminjaman"]);
-            $tanggal_peminjamErr = ""; 
-        } 
-    
-
-
-    if (empty($_POST["tanggal_kembali"])) {
-        $tanggal_kembaliErr = "Tanggal kembali harus diisi";
-    }else {
-        $tanggal_kembali = test_input($_POST["tanggal_kembali"]);
-        $tanggal_kembaliErr = "";
-        
-    }  
-
-    if (empty($_POST["nama_peminjam"])) {
-        $nama_peminjamErr = "Name lengkap wajib diisi!";
-    } else {
-        $nama_peminjam = test_input($_POST["nama_peminjam"]);
-        $nama_peminjamErr = "";
-        if (!preg_match("/^[a-zA-Z ]*$/",$nama_peminjam)) {
-            $nama_peminjamErr = "Only letters and white space allowed"; 
-            
-        }
-    } 
-
-    if (empty($_POST["kontak_peminjam"])) {
-        $kontak_peminjamErr = "Kontak wajib diisi!";
-    } else {
-        $kontak_peminjam = test_input($_POST["kontak_peminjam"]);
-        // check if phone number is integer
-        $kontak_peminjamErr = "";
-        if (!preg_match("/^[0-9]*$/", $kontak_peminjam)){
-            $kontak_peminjamErr = "Isikan dengan angka saja!";
-            
-    }
-}
 if (empty($_POST["kondisi"])) {
     $kondisiErr = "Kondisi Barang wajib diisi!";
 } else {
@@ -90,20 +42,38 @@ if (empty($_POST["kondisi"])) {
     // check if phone number is integer
     $kondisiErr = "";
 }
+$jumlah_dipinjam = mysqli_query($conn, "select * FROM peminjaman WHERE id_peminjaman=$id");
+$data_pinjam = mysqli_fetch_assoc($jumlah_dipinjam);
+$id_brng = $_POST['id_barang'];
+
+$sql_jumlah = mysqli_query($conn,"select * from barang where id = $id_brng");
+  $data = mysqli_fetch_assoc($sql_jumlah);
+  $nama=$data['nama_barang'];
+  $jumlah=$data['jumlah'];
+  $jumlah_servis=$data['jumlah_servis'];
+  $jumlah_pinjam=$data['jumlah_pinjam']-$data_pinjam['jumlah'];
+  $jumlah_rusak=$data['jumlah_rusak'] + $_POST['kondisi'];
+  $tahun=$data['tahun_beli'];
+  $owner=$data['owner'];
+  $lokasi=$data['lokasi'];
 
 
-
+    $id_barang1 = $_POST['id_barang'];
+    $recent_barang = mysqli_query($conn, "select jumlah_rusak from barang where id = $id_barang1");
+    $data_barang = mysqli_fetch_assoc($recent_barang);
+    $jumlah_rusak = $data_barang['jumlah_rusak'] + $_POST['kondisi'];
         
-        $sql = "update peminjaman set  tanggal_kembali='".$_POST['tanggal_kembali']."' where id_peminjaman='$id_peminjaman'";
-        $sql_kon = "update history set tanggal_kembali='".$_POST['tanggal_kembali']."' where id_peminjaman = '$id_peminjaman'";
-
+        $sql = "delete from peminjaman where id_peminjaman='$id_peminjaman'";
+        $sql_kon = "update history set kondisi='".$_POST['kondisi']."', status = 1 where id_peminjaman = '$id_peminjaman'";
+        $sel = "update barang set jumlah_rusak=$jumlah_rusak, jumlah_pinjam=$jumlah_pinjam where id = $id_barang1";
+    
         
         
 
-        if($jumlahErr == "" && $kontak_peminjamErr == "" && $nama_peminjamErr == "" && $tanggal_kembaliErr == "" && $tanggal_peminjamErr == "" )
+        if($jumlahErr == "")
     {
         // echo "ehllo";
-            if (mysqli_query($conn, $sql)) {
+            if (mysqli_query($conn, $sql) && mysqli_query($conn, $sql_kon) && mysqli_query($conn, $sel)) {
                 $dummy = mysqli_query($conn, $sql_kon);
                 header("Location: tabel_peminjaman.php");
                 echo $nama_peminjam;
@@ -134,7 +104,7 @@ if (empty($_POST["kondisi"])) {
 		<div class="container">
   <div class="row">
     <div class="col-12 text-center">
-      <h2 class='display-3'>Edit Data Peminjaman</h2>
+      <h2 class='display-3'>Barang Kembali</h2>
     </div>
   </div>
   <div class="row">
@@ -168,29 +138,10 @@ if (empty($_POST["kondisi"])) {
                     ?>
                     </select>
                 </div>
+                
                 <div class="form-group">
-                    <label>Jumlah</label><span class="text-danger">* <?php echo $jumlahErr;?></span>
-                    <input class='form-control' type="num" name="jumlah" value="<?php echo $d['jumlah'];?>" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Tanggal Peminjaman</label><span class="text-danger">* <?php echo $tanggal_peminjamErr;?></span>
-                    <input class='form-control date' type="text" name="tanggal_peminjaman" value="<?php echo $d['tanggal_peminjaman'];?>" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Tanggal Kembali</label><span class="text-danger">* <?php echo $tanggal_kembaliErr;?></span>
-                    <input class='form-control date' type="text" name="tanggal_kembali" value="<?php echo $d['tanggal_kembali'];?>" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Nama Peminjam</label><span class="text-danger">* <?php echo $nama_peminjamErr;?></span>
-                    <input class='form-control' type="text" name="nama_peminjam" value="<?php echo $d['nama_peminjam'];?>"readonly>
-                </div>
-                <div class="form-group">
-                    <label>Kontak Peminjam</label><span class="text-danger">* <?php echo $kontak_peminjamErr;?></span>
-                    <input class='form-control' type="text" name="kontak_peminjam" value="<?php echo $d['kontak_peminjam'];?>" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Kontak Cadangan</label><span class="text-danger">* <?php echo $kontak_cadanganErr;?></span>
-                    <input class='form-control' type="text" name="kontak_cadangan" value="<?php echo $d['kontak_cadangan'];?>" >
+                    <label>Jumlah Barang Rusak saat kembali</label><span class="text-danger">* <?php echo $kondisiErr;?></span>
+                    <input class='form-control' type="text" name="kondisi" value="<?php echo $d_history['kondisi'];?>" >
                 </div>
                 <input class='btn btn-primary'type="submit" name="update" value="Submit">
             </form>

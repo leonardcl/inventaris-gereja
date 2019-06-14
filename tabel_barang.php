@@ -73,10 +73,7 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
                 <h2 class='display-3'>Tabel Barang</h2>  
             </div>
         </div>
-        <div class="form-group">
-                    <label>Jumlah</label><span class="text-danger">* <?php echo $jumlahErr;?></span>
-                    <input class='form-control' type="num" name="jumlah" value="<?php echo $d['jumlah'];?>" readonly>
-                </div>
+        
 
         <div class="row">
             <div class="col-2"></div>

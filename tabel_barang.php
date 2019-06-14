@@ -74,7 +74,8 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
             </div>
         </div>
 	    
-	    <div class="row">
+
+        <div class="row">
             <div class="col-4"></div>
             <div class="col-4">
               <input type="text" class='form-control' id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama..." title="Type in a name">
@@ -83,7 +84,8 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
                 <button style='margin-top: 20px;' href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" type="button" class="btn btn-primary align-middle " data-toggle="collapse" data-target="#demo">Filter</button>
                 </div>
                 <div class="col-3"></div>
-
+        </div>
+        
         <div class="row" >
           <div class="col-2"></div>
           <div class="col-8 text-center">
@@ -102,14 +104,17 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
             </select>
             <br>
 		      <input type="submit" class="btn btn-success" value="FILTER" name='<?php echo $klik?>'>    
-    	    <a href="tabel_barang.php" class='btn btn-dark'>RESET</a>
+          <a href="tabel_barang.php" class='btn btn-dark' style='margin-top: 20px;'>RESET</a>
           </form>    
         </div>
         </div>
         </div>
-      </div>        
-                
-        	</div>
+        
+    </div>
+    
+      
+	  <br>
+        
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10">
@@ -169,6 +174,7 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
 
     <script src="resource/jquery-3.3.1.slim.min.js" ></script>
 <script src="resource/popper.min.js" ></script>
+<script src="resource/bootstrap1.min.js"></script>
 <script src="resource/bootstrap.min.js" ></script>
 <script src="resource/bootstrap.bundle.min.js"></script>
     <script>

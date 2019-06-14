@@ -81,9 +81,10 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
 }
 #myTable {
   border-collapse: collapse;
-  width: 100%;
+  width: 98%;
   border: 1px solid #ddd;
   font-size: 18px;
+  margin-left:16px;
 }
 
 #myTable th, #myTable td {
@@ -98,6 +99,10 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
 #myTable tr.header, #myTable tr:hover {
   background-color: #f1f1f1;
 }
+body{
+    font-family: 'Trebuchet MS', serif;
+}
+
 </style>
 </head>
 <body>    
@@ -124,20 +129,20 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
         </div>
         <div class="row">
             <div class="col-12">
-                <table class='table table-hover'id="myTable">
-                    <thead>
+                <table class='table table-hover'id="myTable" >
+                    
                     <tr class="bg-info" class="header">
                         <th onclick="sortTable(0)">Nama Barang<i class="material-icons align-text-top">sort</i></th>
                         <th>Jumlah</th> 
                         <th>Rusak</th> 
                         <th>Servis</th> 
-                        <th>Available</th> 
+                        <th>Yang Tersedia</th> 
                         <th onclick="sortTable(5)">Tahun Beli <i class="material-icons align-text-top">sort</i></th>
                         <th onclick="sortTable(6)">Owner <i class="material-icons align-text-top">sort</i></th>
                         <th onclick="sortTable(7)">Lokasi <i class="material-icons align-text-top">sort</i></th>
                         <th>Opsi</th>  
                     </tr>
-                    </thead>
+              
                     <tbody id="myTable1">
                     <?php  
                     if(isset($_POST['lokasi'])){
@@ -178,9 +183,8 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
                     </tbody>
                 </table>
             </div>
-        </div>
     </div>
-    
+    </div>
 
     <script src="resource/jquery-3.3.1.slim.min.js" ></script>
 <script src="resource/popper.min.js" ></script>

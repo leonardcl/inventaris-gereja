@@ -20,6 +20,7 @@
 		<link rel="stylesheet" href="resource/icon.css">
     <link rel='stylesheet' href='resource/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
 		<style>
+
 * {
   box-sizing: border-box;
 }
@@ -179,22 +180,23 @@
 							<td><?php echo $d['kontak_peminjam']; ?></td>
 							<td><?php echo $d['kontak_cadangan']; ?></td>
 							<td>
-								<a class='btn btn-primary' href="edit_peminjaman.php?id=<?php echo $d['id_peminjaman']; ?>">Edit</a>
+              <a style='margin:0;' class='btn btn-success btn-sm' href="edit_peminjaman.php?id=<?php echo $d['id_peminjaman']; ?>"><i class='material-icons align-text-top'>done_outline</i></a>
+								<a style='margin:0;' class='btn btn-primary btn-sm' href="edit_peminjaman.php?id=<?php echo $d['id_peminjaman']; ?>"><i class='material-icons align-text-top'>create</i></a>
                 
                 <div id="confirmBox">
                 <div class="message"></div>
 
-                <a class="btn btn-danger" href="delete_peminjaman.php?id=<?php echo $d['id_peminjaman']; ?>">Yes</a>
-                <a href="#" class="btn btn-primary no">No</a>
+                <a class="btn btn-danger btn-sm" href="delete_peminjaman.php?id=<?php echo $d['id_peminjaman']; ?>">Yes</a>
+                <a href="#" class="btn btn-primary no btn-sm">No</a>
                 </div>
-                <button class='btn btn-danger' onclick='doConfirm("Are you sure?", function yes()
+                <button class='btn btn-danger btn-sm' onclick='doConfirm("Apakah benar barang sudah kembali?", function yes()
                 {
                 alert("YEs")
                 },
                 function no()
                 {
                 alert("No")
-                });'>Delete</button>
+                });'><i class='material-icons align-text-top'>delete</i></button>
 							</td>
 						</tr>
 						<?php 

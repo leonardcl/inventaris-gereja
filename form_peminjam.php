@@ -16,8 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Inventaris test</title>
-
-    <link rel='stylesheet' href='resource/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+    <link rel='stylesheet' href='resource/bootstrap.min.css'/>
 
 </head>
 <body> 
@@ -34,7 +33,7 @@ $id_peminjamErr = $id_barangErr = $jumlahErr = $tanggal_peminjamErr = $tanggal_k
 $id_peminjam = $id_barang = $jumlah = $tanggal_peminjam = $tanggal_kembali = $nama_peminjam = $kontak_peminjam = $kontak_cadangan= "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  
+  $idbrng = $_POST['id_barang'];
   if (empty($_POST["jumlah"])){
       $jumlahErr = "Jumlah harus diisi!";
   } else {
@@ -106,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $nama=$data['nama_barang'];
   $jumlah=$data['jumlah'];
   $jumlah_servis=$data['jumlah_servis'];
-  $jumlah_pinjam=$data['jumlah_pinjam']+$_POST['jumlah'];
+  $jumlah_pinjam=$data['jumlah_pinjam']+(int)$_POST['jumlah'];
   $jumlah_rusak=$data['jumlah_rusak'];
   $tahun=$data['tahun_beli'];
   $owner=$data['owner'];
@@ -139,7 +138,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 else {
-  echo "GAGAL";
 }
 }
 function test_input($data) {
@@ -163,7 +161,7 @@ function test_input($data) {
         <form method="post" >
             <div class="form-group">
                 <label>Nama Barang</label><span class="text-danger">* <?php echo $id_barangErr;?></span>
-                <select name="id_barang" id="" class='form-control' value="<?php echo $id_barang;?>" type="text">
+                <select name="id_barang"  id="" class='form-control' value="<?php echo $id_barang;?>" type="text">
                   <?php 
                     $sqldata = mysqli_query($conn, "select * from barang");
                     while($data = mysqli_fetch_assoc($sqldata))
@@ -210,6 +208,12 @@ function test_input($data) {
 <script src="resource/jquery-3.3.1.slim.min.js" ></script>
 <script src="resource/popper.min.js" ></script>
 <script src="resource/bootstrap.min.js" ></script>
+<script src="resource/bootstrap-select.min.js" ></script>
+<script src="resource/jquery.min.js" ></script>
+
+
+
+
 <script src="resource/bootstrap.bundle.min.js"></script>
 <script type='text/javascript' src="resource/bootstrap-datepicker.min.js"></script>
 <script type='text/javascript' src="resource/bootstrap-datepicker.js"></script>

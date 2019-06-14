@@ -23,6 +23,39 @@
 * {
   box-sizing: border-box;
 }
+  #confirmBox
+{
+    display: none;
+    background-color: #eee;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    position: fixed;
+    width: 300px;
+    left: 50%;
+    margin-left: -150px;
+    padding: 6px 8px 8px;
+    box-sizing: border-box;
+    text-align: center;
+}
+#confirmBox button {
+    background-color: #ccc;
+    display: inline-block;
+    border-radius: 3px;
+    border: 1px solid #aaa;
+    padding: 2px;
+    text-align: center;
+    width: 80px;
+    cursor: pointer;
+}
+#confirmBox button:hover
+{
+    background-color: #ddd;
+}
+#confirmBox .message
+{
+    text-align: left;
+    margin-bottom: 8px;
+}
 
 #myInput {
   background-image: url('searchicon.png');
@@ -69,15 +102,23 @@
     			</div>	
 		</div>
 
-		<div class="row">
-			<div class="col-2"></div>
-			<div class="col-8 text-center">
-				<p>
-				<a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-					Filter
-				</a></p>					
-				<div class="collapse" id="collapseExample">
-					<div class="card card-body">
+	<div class="row">
+            		<div class="col-4"></div>
+            			<div class="col-4">
+              			<input type="text" class='form-control' id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama peminjam..." title="Type in a name">
+            			</div>
+            		<div class="col-1 align-middle">
+                <button style='margin-top: 20px;' href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" type="button" class="btn btn-primary align-middle " data-toggle="collapse" data-target="#demo">Filter</button>
+                </div>
+                <div class="col-3"></div>
+        	</div>
+
+        <div class="row" >
+        <div class="col-2"></div>
+          <div class="col-8 text-center">
+          <div id="demo" class="collapse" id="collapseExample">
+					<div class="card card-body ">
+
 						<form method="get">
 							<label>PILIH TANGGAL Kembali</label>
 							<input type="date" name="tanggal_kembali" class='date'>
@@ -85,18 +126,11 @@
 										<a href="tabel_peminjaman.php" class='btn btn-dark'>RESET</a>
 						</form>
 					</div>
-				</div>
-			</div>
-		</div>
+        </div>
+      </div>
+      <div class="col-1"></div>
+      </div>
 
-		
-	<div class="row">
-            		<div class="col-4"></div>
-            			<div class="col-4">
-              			<input type="text" class='form-control' id="myInput" onkeyup="myFunction()" placeholder="Cari berdasarkan nama peminjam..." title="Type in a name">
-            			</div>
-            		<div class="col-4"></div>
-        	</div>
 	<div class="row">
 			<div class="col-12">
 				<table class='table table-hover' id="myTable">
@@ -146,31 +180,54 @@
 							<td><?php echo $d['kontak_cadangan']; ?></td>
 							<td>
 								<a class='btn btn-primary' href="edit_peminjaman.php?id=<?php echo $d['id_peminjaman']; ?>">Edit</a>
-								<a class='btn btn-danger' href="delete_peminjaman.php?id=<?php echo $d['id_peminjaman']; ?>">Delete</a>
+                
+                <div id="confirmBox">
+                <div class="message"></div>
+
+                <a class="btn btn-danger" href="delete_peminjaman.php?id=<?php echo $d['id_peminjaman']; ?>">Yes</a>
+                <a href="#" class="btn btn-primary no">No</a>
+                </div>
+                <button class='btn btn-danger' onclick='doConfirm("Are you sure?", function yes()
+                {
+                alert("YEs")
+                },
+                function no()
+                {
+                alert("No")
+                });'>Delete</button>
 							</td>
 						</tr>
 						<?php 
 					}
 					?>
 				</table>		
-			
-			
-			
-			
-			
-			
 			</div>
 		</div>
 	</div>
-	
+	<script>function doConfirm(msg, yesFn, noFn)
+{
+    var confirmBox = $("#confirmBox");
+    confirmBox.find(".message").text(msg);
+    confirmBox.find(".yes,.no").unbind().click(function()
+    {
+        confirmBox.hide();
+    });
+    confirmBox.find(".yes").click(yesFn);
+    confirmBox.find(".no").click(noFn);
+    confirmBox.show();
+}</script>
   <script src="resource/jquery-3.3.1.slim.min.js" ></script>
 <script src="resource/popper.min.js" ></script>
 <script src="resource/bootstrap.min.js" ></script>
 <script src="resource/bootstrap.bundle.min.js"></script>
 <script type='text/javascript' src="resource/bootstrap-datepicker.min.js"></script>
+<script src="resource/bootstrap1.min.js"></script>
 <link rel="stylesheet" href="resource/bootstrap-datepicker3.css">
 <script type='text/javascript'>
-
+$('.collapse').collapse();
+$('#myCollapsible').collapse({
+  toggle: false
+});
     $('.date').datepicker({
       format: "yyyy-mm-dd",
       startView : 0,

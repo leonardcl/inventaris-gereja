@@ -178,7 +178,7 @@ body{
 								        $d2 = mysqli_fetch_array($data2);   
                         echo "<td class='align-middle'>".$d2['lokasi']."</td>";
                         ?>    
-                        <td><a class='btn btn-primary' href="edit_barang.php?id=<?php echo $user_data['id']; ?>">Edit</a> 
+                        <td><a class='btn btn-primary btn-sm' href="edit_barang.php?id=<?php echo $user_data['id']; ?>"><i class='material-icons align-text-top'>create</i></a> 
                         <div id="confirmBox">
                           <div class="message"></div>
                           

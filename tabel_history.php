@@ -18,7 +18,7 @@
 	<link rel="shortcut icon" href="resource/icon.png" />
     <title>HISTORI</title>
 	<link rel="stylesheet" href="resource/icon.css">
-    <link rel='stylesheet' href='resource/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+    <link rel='stylesheet' href='resource/bootstrap.min.css' >
 </head>
 <style>
 body{

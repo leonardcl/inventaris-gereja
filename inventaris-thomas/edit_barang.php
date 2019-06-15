@@ -137,7 +137,7 @@ while($user_data = mysqli_fetch_array($result))
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>EDIT DATA BARANG</title>
     <link rel="shortcut icon" href="resource/icon.png" />
-    <link rel='stylesheet' href='resource/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+    <link rel='stylesheet' href='resource/bootstrap.min.css'>
 </head>
 <body>
     <?php 

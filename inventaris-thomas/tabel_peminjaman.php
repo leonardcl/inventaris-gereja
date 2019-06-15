@@ -18,7 +18,7 @@
     <link rel="shortcut icon" href="resource/icon.png" />
     <title>TABEL PEMINJAMAN</title>
 		<link rel="stylesheet" href="resource/icon.css">
-    <link rel='stylesheet' href='resource/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+    <link rel='stylesheet' href='resource/bootstrap.min.css' >
 		<style>
 
 * {
@@ -38,7 +38,8 @@
     box-sizing: border-box;
     text-align: center;
 }
-#confirmBox button {
+#confirmBox button 
+{
     background-color: #ccc;
     display: inline-block;
     border-radius: 3px;
@@ -79,7 +80,7 @@
 
 #myTable th, #myTable td {
   text-align: left;
-  padding: 12px;
+  padding: 10px;
 }
 
 #myTable tr {

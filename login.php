@@ -29,7 +29,7 @@
                     <form method='POST' action='signin.php'>
                     <div class="form-group">
                         <label>Username</label>
-                        <input name="username" class="form-control" placeholder="username" type="test">
+                        <input name="username" class="form-control" placeholder="username" type="test" autofocus>
                     </div> <!-- form-group// -->
                     <div class="form-group">
                         <!-- <a class="float-right" href="#">Forgot?</a> -->

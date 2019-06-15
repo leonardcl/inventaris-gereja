@@ -121,7 +121,7 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10">
-                <table class='table table-hover table-sm'id="myTable">
+                <table class='table table-hover'id="myTable">
                     <thead>
                     <tr class="bg-info" class="header">
                         <th onclick="sortTable(0)">Nama Barang<i class="material-icons align-text-top">sort</i></th>
@@ -168,8 +168,24 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
                         $lokasi = $user_data['lokasi'];
 								        $data2 = mysqli_query($conn,"select lokasi from lokasi where id = $lokasi");
 								        $d2 = mysqli_fetch_array($data2);   
-                        echo "<td class='align-middle'>".$d2['lokasi']."</td>";    
-                        echo "<td><a class='btn btn-primary' href='edit_barang.php?id=$user_data[id]'>Edit</a> <a class='btn btn-danger' href='delete_barang.php?id=$user_data[id]'>Delete</a></td></tr>";        
+                        echo "<td class='align-middle'>".$d2['lokasi']."</td>";
+                        ?>    
+                        <td><a class='btn btn-primary' href="edit_barang.php?id=<?php echo $d['id_peminjaman']; ?>">Edit</a> 
+                        <div id="confirmBox">
+                <div class="message"></div>
+                
+                <a class="btn btn-danger btn-sm" href="delete_barang.php?id=<?php echo $d['id_peminjaman']; ?>">Yes</a>
+                <a href="#" class="btn btn-primary no btn-sm">No</a>
+                </div>
+                <button class='btn btn-danger btn-sm' onclick='doConfirm("Apakah anda ingin menghapus barang?", function yes()
+                {
+                alert("YEs")
+                },
+                function no()
+                {
+                alert("No")
+                });'><i class='material-icons align-text-top'>delete</i></button></td></tr>
+                        <?php       
                     }
                     ?>
                     </tbody>
@@ -178,6 +194,9 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
         </div>
     </div>
     
+
+
+
 
     <script src="resource/jquery-3.3.1.slim.min.js" ></script>
 <script src="resource/popper.min.js" ></script>

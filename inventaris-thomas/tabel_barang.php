@@ -47,7 +47,8 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
     box-sizing: border-box;
     text-align: center;
 }
-#confirmBox button {
+#confirmBox button 
+{
     background-color: #ccc;
     display: inline-block;
     border-radius: 3px;
@@ -89,7 +90,7 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
 
 #myTable th, #myTable td {
   text-align: left;
-  padding: 12px;
+  padding: 10px;
 }
 
 #myTable tr {
@@ -175,17 +176,44 @@ body{
                         $lokasi = $user_data['lokasi'];
 								        $data2 = mysqli_query($conn,"select lokasi from lokasi where id = $lokasi");
 								        $d2 = mysqli_fetch_array($data2);   
-                        echo "<td class='align-middle'>".$d2['lokasi']."</td>";    
-                        echo "<td><a class='btn btn-primary' href='edit_barang.php?id=$user_data[id]'><i class='material-icons align-text-top'>create</i></a>
-                         <a class='btn btn-danger' href='delete_barang.php?id=$user_data[id]'><i class='material-icons align-text-top'>delete</i></a></td></tr>";        
-                    }?>
+                        echo "<td class='align-middle'>".$d2['lokasi']."</td>";
+                        ?>    
+                        <td><a class='btn btn-primary' href="edit_barang.php?id=<?php echo $user_data['id']; ?>">Edit</a> 
+                        <div id="confirmBox">
+                          <div class="message"></div>
+                          
+                          <a class="btn btn-danger btn-sm" href="delete_barang.php?id=<?php echo $user_data['id']; ?>">Ya</a>
+                          <a href="#" class="btn btn-primary no btn-sm">No</a>
+                          </div>
+                          <button class='btn btn-danger btn-sm' onclick='doConfirm("Apakah anda ingin menghapus barang?", function yes()
+                          {
+                          alert("YEs")
+                          },
+                          function no()
+                          {
+                          alert("No")
+                          });'><i class='material-icons align-text-top'>delete</i></button></td></tr>
+                        <?php       
+                    }
+                    ?>        
                   
                     </tbody>
                 </table>
             </div>
     </div>
     </div>
-
+    <script>function doConfirm(msg, yesFn, noFn)
+{
+    var confirmBox = $("#confirmBox");
+    confirmBox.find(".message").text(msg);
+    confirmBox.find(".yes,.no").unbind().click(function()
+    {
+        confirmBox.hide();
+    });
+    confirmBox.find(".yes").click(yesFn);
+    confirmBox.find(".no").click(noFn);
+    confirmBox.show();
+}</script>
     <script src="resource/jquery-3.3.1.slim.min.js" ></script>
 <script src="resource/popper.min.js" ></script>
 <script src="resource/bootstrap1.min.js"></script>

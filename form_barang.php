@@ -15,14 +15,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Inventaris</title>
+    <title>FORM - BARANG</title>
+    <link rel="shortcut icon" href="resource/icon.png" />
 
-    <link rel='stylesheet' href='resource/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+    <link rel='stylesheet' href='resource/bootstrap.min.css'>
 
 </head>
 <body>
 
-
+<STYLE>body{
+    font-family: 'Trebuchet MS', serif;
+}</STYLE>
 <?php
   include('resource/navbar.php');
 
@@ -105,12 +108,12 @@ function test_input($data) {
 
 ?>
 
-<div class="container">
-  <div class="row">
-    <div class="col-12 text-center">
-    <h2 class='display-3'>Form Data Barang</h2>
-    </div>
-  </div>
+<div class="container-fluid">
+<div class="row">
+		<div class="col-12 text-center" style="margin-top:30px;margin-bottom:20px;">
+    		<h2 class='display-4'>FORM BARANG</h2>
+		</div>	
+	</div>
   <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
@@ -156,8 +159,8 @@ function test_input($data) {
                   ?>
                 </select>
             </div>
-        <p><span class="text-danger">* required field</span></p>
-        <input class='btn btn-primary'type="submit" name="submit" value="Submit"> 
+        <p><span class="text-danger">* Wajib diisi!</span></p>
+        <input class='btn btn-primary'type="submit" name="submit" value="Masukkan Data"> 
       </form>
     </div>
   </div>

@@ -16,9 +16,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edit Data Peminjaman</title>
-    <link rel='stylesheet' href='resource/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+    <link rel="shortcut icon" href="resource/icon.png" />
+    <title>EDIT DATA PEMINJAMAN</title>
+    <link rel='stylesheet' href='resource/bootstrap.min.css'>
 </head>
+<STYLE>body{
+    font-family: 'Trebuchet MS', serif;
+}</STYLE>
 <body>
  
  
@@ -132,11 +136,11 @@ if (empty($_POST["kondisi"])) {
         $d_history = mysqli_fetch_assoc($recent_history);
 		?>
 		<div class="container">
-  <div class="row">
-    <div class="col-12 text-center">
-      <h2 class='display-3'>Edit Data Peminjaman</h2>
-    </div>
-  </div>
+        <div class="row">
+		<div class="col-12 text-center" style="margin-top:30px;margin-bottom:20px;">
+    		<h2 class='display-4'>EDIT DATA PEMINJAMAN</h2>
+		</div>	
+	</div>
   <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
@@ -149,7 +153,7 @@ if (empty($_POST["kondisi"])) {
         <div class="col-6">
             <form method="post" >
                 <div class="form-group">
-                    <label>Nama Barang</label><span class="text-danger">* <?php echo $id_barangErr;?></span>
+                    <label>Nama Barang</label>
                     <select name="id_barang" id="" class='form-control' value="<?php echo $d['id_barang'];?>" type="text" readonly>
                     <?php 
                         $sqldata = mysqli_query($conn, "select * from barang");
@@ -159,17 +163,13 @@ if (empty($_POST["kondisi"])) {
                                 # code...
                                 echo "<option value=",$data['id']," selected>",$data['nama_barang'],"</option>";
                             }
-                            else {
-                                # code...
-                                echo "<option value=",$data['id'],">",$data['nama_barang'],"</option>";
-                            }
-                        
+    
                         }
                     ?>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Jumlah</label><span class="text-danger">* <?php echo $jumlahErr;?></span>
+                    <label>Jumlah</label>
                     <input class='form-control' type="num" name="jumlah" value="<?php echo $d['jumlah'];?>" readonly>
                 </div>
                 <div class="form-group">
@@ -182,7 +182,7 @@ if (empty($_POST["kondisi"])) {
                 </div>
                 <div class="form-group">
                     <label>Nama Peminjam</label><span class="text-danger">* <?php echo $nama_peminjamErr;?></span>
-                    <input class='form-control' type="text" name="nama_peminjam" value="<?php echo $d['nama_peminjam'];?>"readonly>
+                    <input class='form-control' type="text" name="nama_peminjam" value="<?php echo $d['nama_peminjam'];?>" readonly>
                 </div>
                 <div class="form-group">
                     <label>Kontak Peminjam</label><span class="text-danger">* <?php echo $kontak_peminjamErr;?></span>
@@ -190,9 +190,10 @@ if (empty($_POST["kondisi"])) {
                 </div>
                 <div class="form-group">
                     <label>Kontak Cadangan</label><span class="text-danger">* <?php echo $kontak_cadanganErr;?></span>
-                    <input class='form-control' type="text" name="kontak_cadangan" value="<?php echo $d['kontak_cadangan'];?>" >
+                    <input class='form-control' type="text" name="kontak_cadangan" value="<?php echo $d['kontak_cadangan'];?>" readonly>
                 </div>
-                <input class='btn btn-primary'type="submit" name="update" value="Submit">
+                <p><span class="text-danger">* Dapat diubah!</span></p>
+                <input class='btn btn-primary'type="submit" name="update" value="Masukkan Data">
             </form>
         
         </div>

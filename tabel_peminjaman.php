@@ -15,10 +15,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tabel Peminjaman</title>
-
+    <link rel="shortcut icon" href="resource/icon.png" />
+    <title>TABEL PEMINJAMAN</title>
 		<link rel="stylesheet" href="resource/icon.css">
-    <link rel='stylesheet' href='resource/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+    <link rel='stylesheet' href='resource/bootstrap.min.css' >
 		<style>
 
 * {
@@ -38,7 +38,8 @@
     box-sizing: border-box;
     text-align: center;
 }
-#confirmBox button {
+#confirmBox button 
+{
     background-color: #ccc;
     display: inline-block;
     border-radius: 3px;
@@ -79,7 +80,7 @@
 
 #myTable th, #myTable td {
   text-align: left;
-  padding: 12px;
+  padding: 10px;
 }
 
 #myTable tr {
@@ -89,6 +90,10 @@
 #myTable tr.header, #myTable tr:hover {
   background-color: #f1f1f1;
 }
+body{
+    font-family: 'Trebuchet MS', serif;
+}
+
 </style>
 </head>
 <body>
@@ -97,55 +102,31 @@
     include('resource/navbar.php');
   ?>
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-12 text-center">
-    			<h2 class='display-3'>Tabel Peminjaman</h2>
-    			</div>	
-		</div>
+	<div class="row">
+		<div class="col-12 text-center" style="margin-top:30px;margin-bottom:0px;">
+    		<h2 class='display-4'>TABEL PEMINJAMAN</h2>
+		</div>	
+	</div>
 
 	<div class="row">
-  <div class="col-2"></div>
-            <div class="col-2"><i class="material-icons align-text-top"></i>
-            <a href="form_peminjam.php" class='btn btn-dark ' style='margin-top: 20px;margin-left: 60px'><i class="material-icons align-text-top">playlist_add</i>ADD ITEM</a>
+  <div class="col-3"></div>
+            <div class="col-1"><i class="material-icons align-text-top"></i>
+            <a href="form_peminjam.php" class='btn btn-dark ' style='margin-top: -5px;margin-left: 60px'><i class="material-icons align-text-top">playlist_add</i></a>
             </div>
             			<div class="col-4">
               			<input type="text" class='form-control' id="myInput" onkeyup="myFunction()" placeholder="Cari..." title="Type in a name">
             			</div>
-            		<div class="col-1 align-middle">
-                <button style='margin-top: 20px;' href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" type="button" class="btn btn-primary align-middle " data-toggle="collapse" data-target="#demo">Filter</button>
-                </div>
-                <div class="row">
-                <a href="tabel_peminjaman.php" class='btn btn-dark' style='margin-top: 20px; margin-bottom: 47px;'>RESET</a>
-                </div>
                 <div class="col-3"></div>
         	</div>
-
-        <div class="row" >
-        <div class="col-2"></div>
-          <div class="col-8 text-center">
-          <div id="demo" class="collapse" id="collapseExample">
-					<div class="card card-body ">
-
-						<form method="get">
-							<label>PILIH TANGGAL Kembali</label>
-							<input type="date" name="tanggal_kembali" class='date'>
-							<input type="submit" class="btn btn-success" value="FILTER" name='<?php echo $klik?>'>    
-						</form>
-					</div>
-        </div>
-      </div>
-      <div class="col-1"></div>
-      </div>
-
 	<div class="row">
 			<div class="col-12">
 				<table class='table table-hover' id="myTable">
 					<tr class="bg-info" class="header">
-						<th>Nama Barang</th>
+						<th onclick="sortTable(0)">Nama Barang <i class="material-icons align-text-top">sort</i></th>
 						<th>Jumlah</th>
 						<th onclick="sortTable(2)">Tanggal Pinjam  <i class="material-icons align-text-top">sort</i></th>
 						<th onclick="sortTable(3)">Tanggal Kembali  <i class="material-icons align-text-top">sort</i></th>
-						<th>Nama Peminjam</th>
+						<th onclick="sortTable(4)">Nama Peminjam <i class="material-icons align-text-top">sort</i></th>
 						<th>Kontak Peminjam</th>
 						<th>Kontak Cadangan</th>
 						<th>Opsi</th>
@@ -178,7 +159,7 @@
 								$data1 = mysqli_query($conn,"select nama_barang from barang where id = $id_brng");
 								$d1 = mysqli_fetch_array($data1);
 							?>
-							<td><?php echo $d1['nama_barang']; ?></td>
+							<td class='text-capitalize'><?php echo $d1['nama_barang']; ?></td>
 							<td><?php echo $d['jumlah']; ?></td>
 							<td><?php echo $d['tanggal_peminjaman']; ?></td>
 							<td><?php echo $d['tanggal_kembali']; ?></td>
@@ -196,7 +177,7 @@
                 <a class="btn btn-danger btn-sm" href="delete_peminjaman.php?id=<?php echo $d['id_peminjaman']; ?>">Yes</a>
                 <a href="#" class="btn btn-primary no btn-sm">No</a>
                 </div>
-                <button class='btn btn-danger btn-sm' onclick='doConfirm("Apakah benar barang sudah kembali?", function yes()
+                <button class='btn btn-danger btn-sm' onclick='doConfirm("Apakah anda ingin menghapus barang?", function yes()
                 {
                 alert("YEs")
                 },

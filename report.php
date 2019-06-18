@@ -1,4 +1,15 @@
 <?php 
+    session_start();
+    if (isset($_POST['logout'])) {
+		session_destroy();
+		header("location:login.php?status=logout");
+	}
+    if (!isset($_SESSION['user_login'])) {
+		header("location:login.php");
+    }
+    include('connect.php');    
+?>
+<?php 
 $dataPoints = array();
 //Best practice is to create a separate file for handling connection to database
 try{
@@ -34,12 +45,18 @@ catch(\PDOException $ex){
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+body{
+    font-family: 'Trebuchet MS', serif;
+}
+</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tabel Peminjaman</title>
-
-    <link rel='stylesheet' href='resource/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+	<link rel="stylesheet" href="resource/icon.css">
+    <title>LAPORAN</title>
+	<link rel="shortcut icon" href="resource/icon.png" />
+    <link rel='stylesheet' href='resource/bootstrap.min.css'>
 		<script>
 window.onload = function () {
  
@@ -47,12 +64,10 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	animationEnabled: true,
 	exportEnabled: true,
 	theme: "light1", // "light1", "light2", "dark1", "dark2"
-	title:{
-		text: ""
-	},
 	axisY: {
 		interval : 1,
 	},
+	
 	data: [{
 		type: "column", //change type to bar, line, area, pie, etc  
 		dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
@@ -71,13 +86,14 @@ chart.render();
 	
 	<div class="container-fluid">
 	<div class="row">
-		<div class="col-12 text-center">
-    		<h2 class='display-2'>Report</h2>
-    	</div>	
+		<div class="col-12 text-center" style="margin-top:30px;margin-bottom:20px;">
+    		<h2 class='display-4'>LAPORAN</h2>
+		</div>	
 	</div>
+
 		<div class="row">
-		<div class="col-3"></div>
-			<div class="col-6">
+		<div class="col-4"></div>
+			<div class="col-4">
 				<table class='table table-hover'>
 					<tr class="bg-info">
 						<th>Nama Barang</th>
@@ -110,16 +126,23 @@ chart.render();
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-12 text-center">
-			<h4 class="display-4">Grafik</h4>
-		</div>
+		<div class="col-12 text-center" style="margin-top:30px;margin-bottom:20px;">
+    		<h2 class='display-4'>GRAFIK</h2>
+		</div>	
 	</div>
-	<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<center>
+<div style="width: 80%;overflow-x:auto;position:relative;potition:absolute;">
+<div id="chartContainer" style="height: 400px;overflow-x:scroll;position:relative;"></div>
+</div>
+	
+	</center>
 <script src="resource/canvasjs.min.js"></script>
 <script src="resource/jquery-3.3.1.slim.min.js" ></script>
 <script src="resource/popper.min.js" ></script>
 <script src="resource/bootstrap.min.js" ></script>
 <script src="resource/bootstrap.bundle.min.js"></script>
+<script src="resource/bootstrap1.min.js"></script>
+<script src="resource/jquery.min.js"></script>
 <script type='text/javascript' src="resource/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet" href="resource/bootstrap-datepicker3.css">
 <script type='text/javascript'>

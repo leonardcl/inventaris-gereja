@@ -7,7 +7,7 @@
     if (!isset($_SESSION['user_login'])) {
 		header("location:login.php");
     }
-    include('connect.php');
+    header('location:tabel_peminjaman.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">

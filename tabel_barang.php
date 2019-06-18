@@ -21,16 +21,51 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Barang</title>
+    <link rel="shortcut icon" href="resource/icon.png" />
+    <title>TABEL BARANG</title>
 
     <link rel='stylesheet' href='resource/bootstrap.min.css'>
 
 <link rel="stylesheet" href="resource/icon.css">
-    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+    
 
     <style>
 * {
   box-sizing: border-box;
+}
+#confirmBox
+{
+    display: none;
+    background-color: #eee;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    position: fixed;
+    width: 300px;
+    left: 50%;
+    margin-left: -150px;
+    padding: 6px 8px 8px;
+    box-sizing: border-box;
+    text-align: center;
+}
+#confirmBox button 
+{
+    background-color: #ccc;
+    display: inline-block;
+    border-radius: 3px;
+    border: 1px solid #aaa;
+    padding: 2px;
+    text-align: center;
+    width: 80px;
+    cursor: pointer;
+}
+#confirmBox button:hover
+{
+    background-color: #ddd;
+}
+#confirmBox .message
+{
+    text-align: left;
+    margin-bottom: 8px;
 }
 
 #myInput {
@@ -38,20 +73,24 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
   background-position: 10px 10px;
   background-size:20px;
   background-repeat: no-repeat;
+  font-size: 16px;
   padding: 12px 20px 12px 40px;
-  margin-bottom: 50px;
+
+  margin-bottom: 20px;
+
   margin-top: 20px;
 }
 #myTable {
   border-collapse: collapse;
-  width: 100%;
+  width: 98%;
   border: 1px solid #ddd;
   font-size: 18px;
+  margin-left:16px;
 }
 
 #myTable th, #myTable td {
   text-align: left;
-  padding: 12px;
+  padding: 10px;
 }
 
 #myTable tr {
@@ -61,6 +100,10 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
 #myTable tr.header, #myTable tr:hover {
   background-color: #f1f1f1;
 }
+body{
+    font-family: 'Trebuchet MS', serif;
+}
+
 </style>
 </head>
 <body>    
@@ -68,74 +111,39 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
         include('resource/navbar.php');
     ?>
     <div class="contanier-fluid">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h2 class='display-3'>Tabel Barang</h2>  
-            </div>
-        </div>
+  	<div class="row">
+		<div class="col-12 text-center" style="margin-top:30px;margin-bottom:0px;">
+    		<h2 class='display-4'>TABEL BARANG</h2>
+		</div>	
+	</div>
         
 
         <div class="row">
-            <div class="col-2"></div>
-            <div class="col-2"><i class="material-icons align-text-top"></i>
-            <a href="form_barang.php" class='btn btn-dark ' style='margin-top: 20px;margin-left: 65px'><i class="material-icons align-text-top">playlist_add</i>ADD ITEM</a>
+            <div class="col-3"></div>
+            <div class="col-1"><i class="material-icons align-text-top"></i>
+            <a href="form_barang.php" class='btn btn-dark ' style='margin-top: -5px;margin-left: 60px'><i class="material-icons align-text-top">playlist_add</i></a>
             </div>
             <div class="col-4">
               <input type="text" class='form-control' id="myInput" onkeyup="myFunction()" placeholder="Cari..." title="Type in a name">
             </div>
-            <div class="col-1 align-middle">
-                <button style='margin-top: 20px;' href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" type="button" class="btn btn-primary align-middle " data-toggle="collapse" data-target="#demo">Filter</button>
-                </div>
                 <div class="col-3"></div>
         </div>
-        
-        <div class="row" >
-          <div class="col-2"></div>
-          <div class="col-8 text-center">
-          <div id="demo" class="collapse" id="collapseExample">
-					<div class="card card-body ">
-          <form method="post">
-            <label>Pilih Lokasi</label>
-            <select class="form-control" name="lokasi" >
-              <?php
-                $sqldata = mysqli_query($conn, "select * from barang");
-                while($data = mysqli_fetch_assoc($sqldata))
-                {
-                  echo"<option value=",$data['lokasi'],">",$data['lokasi'],"</option>";
-                }
-              ?>
-            </select>
-            <br>
-		      <input type="submit" class="btn btn-success" value="FILTER" name='<?php echo $klik?>'>    
-          <a href="tabel_barang.php" class='btn btn-dark' style='margin-top: 20px;'>RESET</a>
-          </form>    
-        </div>
-        </div>
-        </div>
-        
-    </div>
-    
-      
-	  <br>
-        
         <div class="row">
-            <div class="col-1"></div>
-            <div class="col-10">
-                <table class='table table-hover'id="myTable">
-                    <thead>
+            <div class="col-12">
+                <table class='table table-hover'id="myTable" >
+                    
                     <tr class="bg-info" class="header">
                         <th onclick="sortTable(0)">Nama Barang<i class="material-icons align-text-top">sort</i></th>
                         <th>Jumlah</th> 
                         <th>Rusak</th> 
                         <th>Servis</th> 
-                        <th>Available</th> 
+                        <th>Yang Tersedia</th> 
                         <th onclick="sortTable(5)">Tahun Beli <i class="material-icons align-text-top">sort</i></th>
                         <th onclick="sortTable(6)">Owner <i class="material-icons align-text-top">sort</i></th>
                         <th onclick="sortTable(7)">Lokasi <i class="material-icons align-text-top">sort</i></th>
-                        <th>Opsi</th>
-                        
+                        <th>Opsi</th>  
                     </tr>
-                    </thead>
+              
                     <tbody id="myTable1">
                     <?php  
                     if(isset($_POST['lokasi'])){
@@ -170,34 +178,42 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
 								        $d2 = mysqli_fetch_array($data2);   
                         echo "<td class='align-middle'>".$d2['lokasi']."</td>";
                         ?>    
-                        <td><a class='btn btn-primary' href="edit_barang.php?id=<?php echo $d['id_peminjaman']; ?>">Edit</a> 
+                        <td><a class='btn btn-primary btn-sm' href="edit_barang.php?id=<?php echo $user_data['id']; ?>"><i class='material-icons align-text-top'>create</i></a> 
                         <div id="confirmBox">
-                <div class="message"></div>
-                
-                <a class="btn btn-danger btn-sm" href="delete_barang.php?id=<?php echo $d['id_peminjaman']; ?>">Yes</a>
-                <a href="#" class="btn btn-primary no btn-sm">No</a>
-                </div>
-                <button class='btn btn-danger btn-sm' onclick='doConfirm("Apakah anda ingin menghapus barang?", function yes()
-                {
-                alert("YEs")
-                },
-                function no()
-                {
-                alert("No")
-                });'><i class='material-icons align-text-top'>delete</i></button></td></tr>
+                          <div class="message"></div>
+                          
+                          <a class="btn btn-danger btn-sm" href="delete_barang.php?id=<?php echo $user_data['id']; ?>">Ya</a>
+                          <a href="#" class="btn btn-primary no btn-sm">No</a>
+                          </div>
+                          <button class='btn btn-danger btn-sm' onclick='doConfirm("Apakah anda ingin menghapus barang?", function yes()
+                          {
+                          alert("YEs")
+                          },
+                          function no()
+                          {
+                          alert("No")
+                          });'><i class='material-icons align-text-top'>delete</i></button></td></tr>
                         <?php       
                     }
-                    ?>
+                    ?>        
+                  
                     </tbody>
                 </table>
             </div>
-        </div>
     </div>
-    
-
-
-
-
+    </div>
+    <script>function doConfirm(msg, yesFn, noFn)
+{
+    var confirmBox = $("#confirmBox");
+    confirmBox.find(".message").text(msg);
+    confirmBox.find(".yes,.no").unbind().click(function()
+    {
+        confirmBox.hide();
+    });
+    confirmBox.find(".yes").click(yesFn);
+    confirmBox.find(".no").click(noFn);
+    confirmBox.show();
+}</script>
     <script src="resource/jquery-3.3.1.slim.min.js" ></script>
 <script src="resource/popper.min.js" ></script>
 <script src="resource/bootstrap1.min.js"></script>

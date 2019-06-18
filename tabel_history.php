@@ -15,34 +15,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="shortcut icon" href="resource/icon.png" />
     <title>HISTORI</title>
-	<link rel="stylesheet" href="resource/icon.css">
-    <link rel='stylesheet' href='resource/bootstrap.min.css' >
+	<link rel="shortcut icon" href="resource/icon.png" />
+		<link rel="stylesheet" href="resource/icon.css">
+    <link rel='stylesheet' href='resource/bootstrap.min.css'>
+
 </head>
-<style>
-body{
+<STYLE>body{
     font-family: 'Trebuchet MS', serif;
-}
-th{
-	border: 1px solid #ddd;
-}
-.table-fixed{
-	tbody{
-		overflow-y:auto;
-		td{
-			float:left;
-		}
-		tr{
-			th{}
-		}
-	}
-}
-#scrolltable{width:1200px; height: 500px; overflow: auto; }
-
-</style>
-
+}</STYLE>
 <body>
+
+
   <?php 
     include('resource/navbar.php');
   ?>
@@ -55,22 +39,18 @@ th{
 	</div>
 		<div class="row">
 			<div class="col-12">
-			<center>
-			<div id="scrolltable">
-				<table style="text-align: center;vertical-align: middle; width:100%;"class='table table-hover table-sm'>
-				<thead>
-					<tr class="bg-info">	
-						<th style="text-align: center;vertical-align: middle;position:fix;">Nama Barang</th>
-						<th style="text-align: center;vertical-align: middle;position: fix;">Jumlah</th>
-						<th style="text-align: center;vertical-align: middle;position: fix;">Tanggal Peminjaman</th>
-						<th style="text-align: center;vertical-align: middle;position: fix;">Tanggal Kembali</th>
-						<th style="text-align: center;vertical-align: middle;position: fix;">Nama Peminjam</th>
-						<th style="text-align: center;vertical-align: middle;position:fix;">Kontak Peminjam</th>
-						<th style="text-align: center;vertical-align: middle;position: fix;">Kontak Cadangan</th>
-						<th style="text-align: center;vertical-align: middle;position: fix;" colspan="2">Status</th>
+				<table class='table table-hover'>
+					<tr class="bg-warning">	
+						<th onclick="sortTable(0)">Nama Barang<i class="material-icons align-text-top">sort</i></th>
+						<th>Jumlah</th>
+						<th onclick="sortTable(2)">Tanggal Peminjaman<i class="material-icons align-text-top">sort</i></th>
+						<th onclick="sortTable(3)">Tanggal Kembali<i class="material-icons align-text-top">sort</i></th>
+						<th onclick="sortTable(4)">Nama Peminjam<i class="material-icons align-text-top">sort</i></th>
+						<th>Kontak Peminjam</th>
+						<th>Status</th>
+						<th></th>
+						
 					</tr>
-					</thead>
-					<tbody>
 					<?php 
 					include 'connect.php';
 					$no = 1;
@@ -91,35 +71,38 @@ th{
 							<td class='align-middle'><?php echo $d['tanggal_kembali']; ?></td>
 							<td class='align-middle'><?php echo $d['nama_peminjam']; ?></td>
 							<td class='align-middle'><?php echo $d['kontak_peminjam']; ?></td>
-							<td class='align-middle'><?php echo $d['kontak_cadangan']; ?></td>
 							<td class='align-middle'>
 								<?php 
 									//echo $d['kontak_cadangan'];
 									if ($d['status']==1) {
 										# code...
-										echo "<i class='material-icons align-text-top' style='color:green;'>check</i>";
+										echo "<i class='material-icons align-text-top' style='color:green'>check</i>";
 									} else {
 										# code...
-										echo "<i class='material-icons align-text-top' style='color:red;'>clear</i>";
+										echo "<i class='material-icons align-text-top' style='color:red'>clear</i>";
 									}
 									
 								?>
 							</td>
 							<td>
-							<button type="button" class="btn btn-danger" data-toggle="popover" data-trigger="focus" title="Jumlah barang rusak saat kembali" data-content="<?php echo $d['kondisi']; ?>">More</button>
-							</td> 
+							<button type="button" class="btn btn-danger" data-toggle="popover" data-trigger="focus" title="Jumlah barang rusak saat kembali" data-content="<?php echo $d['kondisi']; ?>">Info</button>
+							</td>
+							
 						</tr>
 						<?php 
 					}
 					?>
-					</tbody>
-				</table>	
-			</div>
-</center>
+				</table>		
+			
+			
+			
+			
+			
+			
 			</div>
 		</div>
 	</div>
-	<script src="resource/jquery-3.3.1.slim.min.js" ></script>
+<script src="resource/jquery-3.3.1.slim.min.js" ></script>
 <script src="resource/popper.min.js" ></script>
 <script src="resource/bootstrap.min.js" ></script>
 <script src="resource/bootstrap.bundle.min.js"></script>
@@ -138,6 +121,81 @@ th{
       minViewMode: 2,
       autoclose: true
     });
+
+</script>
+<script>
+// function myFunction() {
+//   var input, filter, table, tr, td, i, txtValue;
+//   input = document.getElementById("myInput");
+//   filter = input.value.toUpperCase();
+//   table = document.getElementById("myTable");
+//   tr = table.getElementsByTagName("tr");
+//   for (i = 0; i < tr.length; i++) {
+//     td = tr[i].getElementsByTagName("td")[4];
+//     if (td) {
+//       txtValue = td.textContent || td.innerText;
+//       if (txtValue.toUpperCase().indexOf(filter) > -1) {
+//         tr[i].style.display = "";
+//       } else {
+//         tr[i].style.display = "none";
+//       }
+//     }       
+//   }
+// }
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;      
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
 </script>
 </body>
 </html>

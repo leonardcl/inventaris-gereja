@@ -15,7 +15,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Inventaris test</title>
+    <title>FORM PEMINJAMAN</title>
+    <link rel="shortcut icon" href="resource/icon.png" />
     <link rel='stylesheet' href='resource/bootstrap.min.css'/>
 
 </head>
@@ -53,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
     
   if (empty($_POST["tanggal_peminjaman"])) {
-    $tanggal_peminjamErr = "Tanggal peminjam harus diisi!";
+    $tanggal_peminjamErr = "Tanggal Peminjam harus diisi!";
   }else {
       $tanggal_peminjam = test_input($_POST["tanggal_peminjaman"]);
       $tanggal_peminjamErr = ""; 
@@ -62,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
   if (empty($_POST["tanggal_kembali"])) {
-    $tanggal_kembaliErr = "Tanggal kembali harus diisi";
+    $tanggal_kembaliErr = "Tanggal Kembali harus diisi";
   }else {
     $tanggal_kembali = test_input($_POST["tanggal_kembali"]);
     $tanggal_kembaliErr = "";
@@ -70,14 +71,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }  
 
   if (empty($_POST["nama_peminjam"])) {
-    $nama_peminjamErr = "Name lengkap wajib diisi!";
+    $nama_peminjamErr = "Name Peminjam wajib diisi!";
   } else {
     $nama_peminjam = test_input($_POST["nama_peminjam"]);
     $nama_peminjamErr = "";
-    if (!preg_match("/^[a-zA-Z ]*$/",$nama_peminjam)) {
-      $nama_peminjamErr = "Only letters and white space allowed"; 
-     
-    }
   } 
 
   if (empty($_POST["kontak_peminjam"])) {
@@ -150,17 +147,17 @@ function test_input($data) {
 ?>
 
 <div class="container">
-  <div class="row">
-    <div class="col-12 text-center">
-      <h2 class='display-3'>Form Peminjaman</h2>
-    </div>
-  </div>
+<div class="row">
+		<div class="col-12 text-center" style="margin-top:30px;margin-bottom:20px;">
+    		<h2 class='display-4'>FORM PEMINJAMAN</h2>
+		</div>	
+	</div>
   <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
         <form method="post" >
             <div class="form-group">
-                <label>Nama Barang</label><span class="text-danger">* <?php echo $id_barangErr;?></span>
+                <label>Nama Barang</label><span class="text-danger">
                 <select name="id_barang"  id="" class='form-control' value="<?php echo $id_barang;?>" type="text">
                   <?php 
                     $sqldata = mysqli_query($conn, "select * from barang");
@@ -195,8 +192,8 @@ function test_input($data) {
                 <label>Kontak Cadangan</label>
                 <input class='form-control' type="text" name="kontak_cadangan" value="<?php echo $kontak_cadangan;?>">
             </div>
-            <p><span class="text-danger">* required field</span></p>
-            <input class='btn btn-primary'type="submit" name="update" value="Submit">
+            <p><span class="text-danger">* Wajib diisi!</span></p>
+            <input class='btn btn-primary'type="submit" name="update" value="Masukkan Data">
         </form>    
     </div>
   </div>

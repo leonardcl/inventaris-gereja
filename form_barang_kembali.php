@@ -16,9 +16,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edit Data Peminjaman</title>
-    <link rel='stylesheet' href='resource/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
+    <link rel="shortcut icon" href="resource/icon.png" />
+    <title>FORM BARANG KEMBALI</title>
+    <link rel='stylesheet' href='resource/bootstrap.min.css'>
 </head>
+<style>body{
+    font-family: 'Trebuchet MS', serif;
+}
+</style>
 <body>
  
  
@@ -102,11 +107,11 @@ $sql_jumlah = mysqli_query($conn,"select * from barang where id = $id_brng");
         $d_history = mysqli_fetch_assoc($recent_history);
 		?>
 		<div class="container">
-  <div class="row">
-    <div class="col-12 text-center">
-      <h2 class='display-3'>Barang Kembali</h2>
-    </div>
-  </div>
+        <div class="row">
+		<div class="col-12 text-center" style="margin-top:30px;margin-bottom:0px;">
+    		<h2 class='display-4'>FORM BARANG KEMBALI</h2>
+		</div>	
+	</div>
   <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
@@ -119,7 +124,7 @@ $sql_jumlah = mysqli_query($conn,"select * from barang where id = $id_brng");
         <div class="col-6">
             <form method="post" >
                 <div class="form-group">
-                    <label>Nama Barang</label><span class="text-danger">* <?php echo $id_barangErr;?></span>
+                    <label>Nama Barang</label>
                     <select name="id_barang" id="" class='form-control' value="<?php echo $d['id_barang'];?>" type="text" readonly>
                     <?php 
                         $sqldata = mysqli_query($conn, "select * from barang");
@@ -129,21 +134,18 @@ $sql_jumlah = mysqli_query($conn,"select * from barang where id = $id_brng");
                                 # code...
                                 echo "<option value=",$data['id']," selected>",$data['nama_barang'],"</option>";
                             }
-                            else {
-                                # code...
-                                echo "<option value=",$data['id'],">",$data['nama_barang'],"</option>";
-                            }
-                        
                         }
                     ?>
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label>Jumlah Barang Rusak saat kembali</label><span class="text-danger">* <?php echo $kondisiErr;?></span>
+                    <label>Jumlah barang rusak saat kembali</label><span class="text-danger">* <?php echo $kondisiErr;?></span>
                     <input class='form-control' type="text" name="kondisi" value="<?php echo $d_history['kondisi'];?>" >
                 </div>
-                <input class='btn btn-primary'type="submit" name="update" value="Submit">
+                <p><span class="text-danger">* Dapat diisi!</span></p>
+                <input class='btn btn-primary'type="submit" name="update" value="OK">
+                
             </form>
         
         </div>

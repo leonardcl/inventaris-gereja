@@ -15,11 +15,6 @@ $idErr = $namabarangErr = $jumlahErr = $tahunbeliErr = $ownerErr = $lokasiErr = 
 
 if(isset($_POST['update']))
 {  
-  $id = $_GET['id'];
-  $result_1 = mysqli_query($conn, "SELECT * FROM barang WHERE id=$id");
-
-  $data = mysqli_fetch_assoc($result_1);
-  $jumlah_pinjam = $data['jumlah_pinjam'];
         if (empty($_POST["namabarang"])) {
           $namabarangErr = "Nama Barang harus di isi!";
         }else {
@@ -43,9 +38,9 @@ if(isset($_POST['update']))
         } else {
           $jumlah_rusak = test_input($_POST["jumlah_rusak"]);
           $jumlah_rusakErr = "";
-          
           if (!preg_match("/^[0-9]*$/",$jumlah_rusak)) {
             $jumlah_rusakErr = "Isikan dengan angka!";
+             
           }
         }
         if (empty($_POST["jumlah_servis"])) {
@@ -79,10 +74,7 @@ if(isset($_POST['update']))
           $lokasi = test_input($_POST["lokasi"]);
           $lokasiErr = "";
         }
-        if ($jumlah_rusak + $jumlah_servis + $jumlah_pinjam > $jumlah) {
-          # code...
-          $jumlah_rusakErr = $jumlahErr = $jumlah_servisErr = "Jumlah tidak memenuhi";
-        }
+
         $id = $_POST['id'];
         $nama=$_POST['namabarang'];
         $jumlah=$_POST['jumlah'];
@@ -93,12 +85,12 @@ if(isset($_POST['update']))
         $jumlah_servis = $_POST['jumlah_servis'];
 
         $perintah = "UPDATE barang SET nama_barang='$nama',jumlah=$jumlah,jumlah_servis = $jumlah_servis, jumlah_rusak = $jumlah_rusak,tahun_beli='$tahun', owner='$owner', lokasi='$lokasi' where id=$id";
-
+        $result = mysqli_query($conn, $perintah);
       
         if($namabarangErr == "" && $jumlahErr == "" && $tahunbeliErr == "" && $ownerErr == "" && $lokasiErr == "")
       {
         // echo "ehllo";
-          if (mysqli_query($conn, $perintah)) {
+          if (mysqli_query($conn, $result)) {
             header("Location:tabel_barang.php");
             echo "New record created successfully";
           } else {
@@ -143,7 +135,8 @@ while($user_data = mysqli_fetch_array($result))
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edit Barang</title>
+    <title>EDIT DATA BARANG</title>
+    <link rel="shortcut icon" href="resource/icon.png" />
     <link rel='stylesheet' href='resource/bootstrap.min.css'>
 </head>
 <body>
@@ -153,11 +146,11 @@ while($user_data = mysqli_fetch_array($result))
 
 
 <div class="container">
-  <div class="row">
-    <div class="col-12 text-center">
-    <h2 class='display-3'>Edit Data Barang</h2>
-    </div>
-  </div>
+<div class="row">
+		<div class="col-12 text-center" style="margin-top:30px;margin-bottom:0px;">
+    		<h2 class='display-4'>EDIT DATA BARANG</h2>
+		</div>	
+	</div>
   <div class="row">
     <div class="col-3"></div>
     <div class="col-6">
@@ -229,7 +222,7 @@ while($user_data = mysqli_fetch_array($result))
             ?>
             </select>
         </div>
-        <p><span class="text-danger">* required field</span></p>
+        <p><span class="text-danger">* Dapat diubah!</span></p>
         <input class='btn btn-primary'type="submit" name="update" value="Submit">
         <input type="hidden" name="id" value=<?php echo $_GET['id'];?>> 
       </form>

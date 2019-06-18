@@ -152,14 +152,23 @@ body{
           
 					while($d = mysqli_fetch_array($sql)){
             $today =  date("Y-m-d");
-            $tomorrow = new dateTime('tomorrow');
+            $startDate = time();
+            $threedays = date('Y-m-d', strtotime('+3 day', $startDate));
               if ($d['tanggal_kembali'] == $today) {
                 # code...
                 echo "<tr class='table-danger'>";
               }
               else {
                 # code...
-                "<tr>";
+        
+                if ($d['tanggal_kembali'] <= $threedays) {
+                  # code...
+                  echo "<tr class='table-warning'>";
+                }
+                else {
+                  # code...
+                  echo "<tr>";
+                }
               }
 						?>
 							<?php

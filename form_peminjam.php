@@ -103,7 +103,6 @@ if ($tanggal_kembali<$tanggal_peminjam) {
   $data = mysqli_fetch_assoc($sql_jumlah);
   $id = $data['id'];
   $nama=$data['nama_barang'];
-  $jumlah=$data['jumlah'];
   $jumlah_servis=$data['jumlah_servis'];
   $jumlah_pinjam=$data['jumlah_pinjam']+(int)$_POST['jumlah'];
   $jumlah_rusak=$data['jumlah_rusak'];
@@ -111,7 +110,7 @@ if ($tanggal_kembali<$tanggal_peminjam) {
   $owner=$data['owner'];
   $lokasi=$data['lokasi'];
 
-  $perintah = "UPDATE barang SET nama_barang='$nama',jumlah=$jumlah,jumlah_rusak=$jumlah_rusak,jumlah_pinjam=$jumlah_pinjam,jumlah_servis=$jumlah_servis,tahun_beli='$tahun', owner='$owner', lokasi='$lokasi' where id=$id";
+  $perintah = "UPDATE barang SET nama_barang='$nama',jumlah_rusak=$jumlah_rusak,jumlah_pinjam=$jumlah_pinjam,jumlah_servis=$jumlah_servis,tahun_beli='$tahun', owner='$owner', lokasi='$lokasi' where id=$id";
   $total = 0;
 
   if($jumlahErr == "" && $kontak_peminjamErr == "" && $nama_peminjamErr == "" && $tanggal_kembaliErr == "" && $tanggal_peminjamErr == "")

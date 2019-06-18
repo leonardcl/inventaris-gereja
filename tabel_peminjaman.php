@@ -151,8 +151,17 @@ body{
          					 }
           
 					while($d = mysqli_fetch_array($sql)){
+            $today =  date("Y-m-d");
+            $tomorrow = new dateTime('tomorrow');
+              if ($d['tanggal_kembali'] == $today) {
+                # code...
+                echo "<tr class='table-danger'>";
+              }
+              else {
+                # code...
+                "<tr>";
+              }
 						?>
-						<tr>
 							<?php
 								$id_brng = $d['id_barang'];
 							
@@ -166,7 +175,9 @@ body{
               ?>
 							<td class='align-middle'><?php echo $newDate_pinjam; ?></td>
               <?php 
+
               $newDate_kembali = date("d-m-Y", strtotime($d['tanggal_kembali']));
+              
               ?>
 							<td class='align-middle'><?php echo $newDate_kembali; ?></td>
 							<td class='align-middle'><?php echo $d['nama_peminjam']; ?></td>

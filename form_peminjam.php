@@ -163,7 +163,14 @@ function test_input($data) {
                     $sqldata = mysqli_query($conn, "select * from barang");
                     while($data = mysqli_fetch_assoc($sqldata))
                     {
-                      echo "<option value=",$data['id'],">",$data['nama_barang'],"</option>";
+                      $owner = $data['owner'];
+								        $data1 = mysqli_query($conn,"select owner from owner where id = $owner");
+                        $d1 = mysqli_fetch_array($data1);
+                        $lokasi = $data['owner'];
+								        $data2 = mysqli_query($conn,"select lokasi from lokasi where id = $lokasi");
+								        $d2 = mysqli_fetch_array($data2);
+                      
+                      echo "<option value=",$data['id'],">",$data['nama_barang'],"  -  ",$d2['lokasi'],"  -  ",$d1['owner'],"</option>";
                     }
                   ?>
                 </select>

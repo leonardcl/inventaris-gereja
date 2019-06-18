@@ -111,7 +111,7 @@ chart.render();
 							$idbrng = $d['id_barang'];
 							$data1 = mysqli_query($conn,"select nama_barang from barang where id = $idbrng");
 								$d1 = mysqli_fetch_array($data1);
-							echo "<td>",$d1['nama_barang'],"</td>";
+							echo "<td class='text-capitalize'>",$d1['nama_barang'],"</td>";
 							$data2= mysqli_query($conn, "SELECT count(id_barang) FROM history where id_barang = $idbrng ");
 							$d2 = mysqli_fetch_array($data2);
 							echo "<td>",$d2[0],"</td>";

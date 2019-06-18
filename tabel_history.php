@@ -65,7 +65,7 @@
 								$data1 = mysqli_query($conn,"select nama_barang from barang where id = $id_brng");
 								$d1 = mysqli_fetch_array($data1);
 							?>
-							<td class='align-middle'><?php echo $d1['nama_barang']; ?></td>
+							<td class='align-middle text-capitalize'><?php echo $d1['nama_barang']; ?></td>
 							<td class='align-middle'><?php echo $d['jumlah']; ?></td>
 							<td class='align-middle'><?php echo $d['tanggal_peminjaman']; ?></td>
 							<td class='align-middle'><?php echo $d['tanggal_kembali']; ?></td>

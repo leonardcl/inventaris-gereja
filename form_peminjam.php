@@ -88,7 +88,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       
   }
 }
-
+if ($tanggal_kembali<$tanggal_peminjam) {
+  # code...
+  $tanggal_kembaliErr = "Tanggal kembali harus setelah tanggal pinjam";
+}
 
   $baca_id_his = mysqli_query($conn, "select max(id_peminjaman) from history;");
   $b_id_his = mysqli_fetch_assoc($baca_id_his);

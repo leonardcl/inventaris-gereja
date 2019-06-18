@@ -159,14 +159,20 @@ body{
 								$data1 = mysqli_query($conn,"select nama_barang from barang where id = $id_brng");
 								$d1 = mysqli_fetch_array($data1);
 							?>
-							<td class='text-capitalize'><?php echo $d1['nama_barang']; ?></td>
-							<td><?php echo $d['jumlah']; ?></td>
-							<td><?php echo $d['tanggal_peminjaman']; ?></td>
-							<td><?php echo $d['tanggal_kembali']; ?></td>
-							<td><?php echo $d['nama_peminjam']; ?></td>
-							<td><?php echo $d['kontak_peminjam']; ?></td>
-							<td><?php echo $d['kontak_cadangan']; ?></td>
-							<td>
+							<td class='align-middle text-capitalize'><?php echo $d1['nama_barang']; ?></td>
+							<td class='align-middle'><?php echo $d['jumlah']; ?></td>
+              <?php 
+              $newDate_pinjam = date("d-m-Y", strtotime($d['tanggal_peminjaman']));
+              ?>
+							<td class='align-middle'><?php echo $newDate_pinjam; ?></td>
+              <?php 
+              $newDate_kembali = date("d-m-Y", strtotime($d['tanggal_kembali']));
+              ?>
+							<td class='align-middle'><?php echo $newDate_kembali; ?></td>
+							<td class='align-middle'><?php echo $d['nama_peminjam']; ?></td>
+							<td class='align-middle'><?php echo $d['kontak_peminjam']; ?></td>
+							<td class='align-middle'><?php echo $d['kontak_cadangan']; ?></td>
+							<td class='align-middle'>
               <a style='margin:0;' class='btn btn-success btn-sm' href="form_barang_kembali.php?id=<?php echo $d['id_peminjaman']; ?>"><i class='material-icons align-text-top'>done_outline</i></a>
 								<a style='margin:0;' class='btn btn-primary btn-sm' href="edit_peminjaman.php?id=<?php echo $d['id_peminjaman']; ?>"><i class='material-icons align-text-top'>create</i></a>
                 

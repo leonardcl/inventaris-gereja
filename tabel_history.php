@@ -67,8 +67,14 @@
 							?>
 							<td class='align-middle text-capitalize'><?php echo $d1['nama_barang']; ?></td>
 							<td class='align-middle'><?php echo $d['jumlah']; ?></td>
-							<td class='align-middle'><?php echo $d['tanggal_peminjaman']; ?></td>
-							<td class='align-middle'><?php echo $d['tanggal_kembali']; ?></td>
+              <?php 
+              $newDate_pinjam = date("d-m-Y", strtotime($d['tanggal_peminjaman']));
+              ?>
+							<td class='align-middle'><?php echo $newDate_pinjam; ?></td>
+              <?php 
+              $newDate_kembali = date("d-m-Y", strtotime($d['tanggal_kembali']));
+              ?>
+							<td class='align-middle'><?php echo $newDate_kembali; ?></td>
 							<td class='align-middle'><?php echo $d['nama_peminjam']; ?></td>
 							<td class='align-middle'><?php echo $d['kontak_peminjam']; ?></td>
 							<td class='align-middle'>

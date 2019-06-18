@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 if ($tanggal_kembali<$tanggal_peminjam) {
   # code...
-  $tanggal_kembaliErr = "Tanggal kembali harus setelah tanggal pinjam";
+  $tanggal_kembaliErr = "Tanggal kembali harus setelah tanggal pinjam!";
 }
 
   $baca_id_his = mysqli_query($conn, "select max(id_peminjaman) from history;");
@@ -159,7 +159,7 @@ function test_input($data) {
     <div class="col-6">
         <form method="post" >
             <div class="form-group">
-                <label>Nama Barang</label><span class="text-danger">
+                <label>Nama Barang</label><span class="text-danger">* <?php echo $tanggal_peminjamErr;?></span>
                 <select name="id_barang"  id="" class='form-control' value="<?php echo $id_barang;?>" type="text">
                   <?php 
                     $sqldata = mysqli_query($conn, "select * from barang");

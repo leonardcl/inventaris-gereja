@@ -93,7 +93,7 @@
 
 if ($tanggal_kembali<$tanggal_peminjam) {
     # code...
-    $tanggal_kembaliErr = "Tanggal kembali harus setelah tanggal pinjam";
+    $tanggal_kembaliErr = "Tanggal kembali harus setelah tanggal pinjam!";
   }
 
         
@@ -195,11 +195,11 @@ if ($tanggal_kembali<$tanggal_peminjam) {
                     <input class='form-control date' type="text" name="tanggal_kembali" value="<?php echo $d['tanggal_kembali'];?>" readonly>
                 </div>
                 <div class="form-group">
-                    <label>Nama Peminjam</label><span class="text-danger">* <?php echo $nama_peminjamErr;?></span>
+                    <label>Nama Peminjam</label>
                     <input class='form-control' type="text" name="nama_peminjam" value="<?php echo $d['nama_peminjam'];?>" readonly>
                 </div>
                 <div class="form-group">
-                    <label>Kontak Peminjam</label><span class="text-danger">* <?php echo $kontak_peminjamErr;?></span>
+                    <label>Kontak Peminjam</label>
                     <input class='form-control' type="text" name="kontak_peminjam" value="<?php echo $d['kontak_peminjam'];?>" readonly>
                 </div>
                 <div class="form-group">

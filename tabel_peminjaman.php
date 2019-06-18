@@ -20,7 +20,12 @@
 		<link rel="stylesheet" href="resource/icon.css">
     <link rel='stylesheet' href='resource/bootstrap.min.css' >
 		<style>
+.tableFixHead { overflow-y: auto; height: 450px; }
 
+/* Just common table stuff. */
+table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 16px; }
+th     { background:#eee; }
 * {
   box-sizing: border-box;
 }
@@ -107,7 +112,6 @@ body{
     		<h2 class='display-4'>TABEL PEMINJAMAN</h2>
 		</div>	
 	</div>
-
 	<div class="row">
   <div class="col-3"></div>
             <div class="col-1"><i class="material-icons align-text-top"></i>
@@ -120,8 +124,10 @@ body{
         	</div>
 	<div class="row">
 			<div class="col-12">
+      <div class="tableFixHead">
 				<table class='table table-hover' id="myTable">
-					<tr class="bg-info" class="header">
+        <thead>
+					<tr  class="header">
 						<th onclick="sortTable(0)">Nama Barang <i class="material-icons align-text-top">sort</i></th>
 						<th>Jumlah</th>
 						<th onclick="sortTable(2)">Tanggal Pinjam  <i class="material-icons align-text-top">sort</i></th>
@@ -131,6 +137,7 @@ body{
 						<th>Kontak Cadangan</th>
 						<th>Opsi</th>
 					</tr>
+          </thead>
           <tbody id='myTable1'>
 					<?php 
 					include 'connect.php';
@@ -180,6 +187,7 @@ body{
 							<td class='align-middle text-capitalize'><?php echo $d1['nama_barang']; ?></td>
 							<td class='align-middle'><?php echo $d['jumlah']; ?></td>
               <?php 
+              
               $newDate_pinjam = date("d-m-Y", strtotime($d['tanggal_peminjaman']));
               ?>
 							<td class='align-middle'><?php echo $newDate_pinjam; ?></td>
@@ -189,7 +197,7 @@ body{
               
               ?>
 							<td class='align-middle'><?php echo $newDate_kembali; ?></td>
-							<td class='align-middle'><?php echo $d['nama_peminjam']; ?></td>
+							<td class='align-middle text-capitalize'><?php echo $d['nama_peminjam']; ?></td>
 							<td class='align-middle'><?php echo $d['kontak_peminjam']; ?></td>
 							<td class='align-middle'><?php echo $d['kontak_cadangan']; ?></td>
 							<td class='align-middle'>
@@ -203,7 +211,7 @@ body{
                 <a class="btn btn-danger btn-sm" href="delete_peminjaman.php?id=<?php echo $d['id_peminjaman']; ?>">Yes</a>
                 <a href="#" class="btn btn-primary no btn-sm">No</a>
                 </div>
-                <button class='btn btn-danger btn-sm' onclick='doConfirm("Apakah anda ingin menghapus barang?", function yes()
+                <button class='btn btn-danger btn-sm' onclick='doConfirm("Apakah anda ingin menghapus peminjaman?", function yes()
                 {
                 alert("YEs")
                 },
@@ -219,6 +227,7 @@ body{
           </tbody>
 				</table>		
 			</div>
+      </div>
 		</div>
 	</div>
 	<script>function doConfirm(msg, yesFn, noFn)
@@ -255,71 +264,37 @@ $('#myCollapsible').collapse({
 
 </script>
 <script>
-// function myFunction() {
-//   var input, filter, table, tr, td, i, txtValue;
-//   input = document.getElementById("myInput");
-//   filter = input.value.toUpperCase();
-//   table = document.getElementById("myTable");
-//   tr = table.getElementsByTagName("tr");
-//   for (i = 0; i < tr.length; i++) {
-//     td = tr[i].getElementsByTagName("td")[4];
-//     if (td) {
-//       txtValue = td.textContent || td.innerText;
-//       if (txtValue.toUpperCase().indexOf(filter) > -1) {
-//         tr[i].style.display = "";
-//       } else {
-//         tr[i].style.display = "none";
-//       }
-//     }       
-//   }
-// }
+
 function sortTable(n) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById("myTable");
   switching = true;
-  //Set the sorting direction to ascending:
   dir = "asc"; 
-  /*Make a loop that will continue until
-  no switching has been done:*/
   while (switching) {
-    //start by saying: no switching is done:
     switching = false;
     rows = table.rows;
-    /*Loop through all table rows (except the
-    first, which contains table headers):*/
     for (i = 1; i < (rows.length - 1); i++) {
-      //start by saying there should be no switching:
       shouldSwitch = false;
-      /*Get the two elements you want to compare,
-      one from current row and one from the next:*/
       x = rows[i].getElementsByTagName("TD")[n];
       y = rows[i + 1].getElementsByTagName("TD")[n];
-      /*check if the two rows should switch place,
-      based on the direction, asc or desc:*/
       if (dir == "asc") {
         if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          //if so, mark as a switch and break the loop:
           shouldSwitch= true;
           break;
         }
       } else if (dir == "desc") {
         if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-          //if so, mark as a switch and break the loop:
           shouldSwitch = true;
           break;
         }
       }
     }
     if (shouldSwitch) {
-      /*If a switch has been marked, make the switch
-      and mark that a switch has been done:*/
       rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
       switching = true;
-      //Each time a switch is done, increase this count by 1:
+
       switchcount ++;      
     } else {
-      /*If no switching has been done AND the direction is "asc",
-      set the direction to "desc" and run the while loop again.*/
       if (switchcount == 0 && dir == "asc") {
         dir = "desc";
         switching = true;
@@ -327,6 +302,11 @@ function sortTable(n) {
     }
   }
 }
+</script>
+<script>var $th = $('.tableFixHead').find('thead th')
+$('.tableFixHead').on('scroll', function() {
+  $th.css('transform', 'translateY('+ this.scrollTop +'px)');
+});
 </script>
 <script>
 $(document).ready(function(){

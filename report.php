@@ -46,6 +46,12 @@ catch(\PDOException $ex){
 <html>
 <head>
 <style>
+.tableFixHead { overflow-y: auto; height: 250px; }
+
+/* Just common table stuff. */
+table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 16px; }
+th     { background:#eee; }
 body{
     font-family: 'Trebuchet MS', serif;
 }
@@ -67,14 +73,18 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	axisY: {
 		interval : 1,
 	},
-	
+	title :{
+		text: "GRAFIK PEMINJAMAN"
+	},
+
 	data: [{
 		type: "column", //change type to bar, line, area, pie, etc  
+    toolTipContent: "{y}%",
 		dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
 	}]
 });
+
 chart.render();
- 
 }
 </script>
 </head>
@@ -94,11 +104,15 @@ chart.render();
 		<div class="row">
 		<div class="col-4"></div>
 			<div class="col-4">
-				<table class='table table-hover'>
+      <div class="tableFixHead">
+				<table class='table table-hover' id="myTable">
+        <thead>
 					<tr class="bg-info">
-						<th>Nama Barang</th>
-						<th>Jumlah Peminjaman (x)</th>
+						<th onclick="sortTable(0)">Nama Barang<i class="material-icons align-text-top">sort</i></th>
+						<th onclick="sortTable(1)">Jumlah Peminjaman<i class="material-icons align-text-top">sort</i></th>
 					</tr>
+          </thead>
+          <tbody>
 					<?php 
 					include 'connect.php';
 					$no = 1;
@@ -121,8 +135,10 @@ chart.render();
 						<?php 
 					}
 					?>
+          </tbody>
 				</table>		
 			</div>
+      </div>
 		</div>
 	</div>
 	<div class="row">
@@ -131,10 +147,8 @@ chart.render();
 		</div>	
 	</div>
 <center>
-<div style="width: 80%;overflow-x:auto;position:relative;potition:absolute;">
-<div id="chartContainer" style="height: 400px;overflow-x:scroll;position:relative;"></div>
-</div>
-	
+<div id="chartContainer" style="height: 300px; width: 80%;">
+	</div>
 	</center>
 <script src="resource/canvasjs.min.js"></script>
 <script src="resource/jquery-3.3.1.slim.min.js" ></script>
@@ -154,6 +168,86 @@ chart.render();
       autoclose: true
     });
 
+</script>
+    <script>
+// function myFunction() {
+//   var input, filter, table, tr, td, i, txtValue;
+//   input = document.getElementById("myInput");
+//   filter = input.value.toUpperCase();
+//   table = document.getElementById("myTable");
+//   tr = table.getElementsByTagName("tr");
+//   for (i = 0; i < tr.length; i++) {
+//     td = tr[i].getElementsByTagName("td")[0];
+//     if (td) {
+//       txtValue = td.textContent || td.innerText;
+//       if (txtValue.toUpperCase().indexOf(filter) > -1) {
+//         tr[i].style.display = "";
+//       } else {
+//         tr[i].style.display = "none";
+//       }
+//     }       
+//   }
+// }
+
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;      
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+</script>
+<script>var $th = $('.tableFixHead').find('thead th')
+$('.tableFixHead').on('scroll', function() {
+  $th.css('transform', 'translateY('+ this.scrollTop +'px)');
+});
 </script>
 </body>
 </html>

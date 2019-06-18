@@ -21,9 +21,18 @@
     <link rel='stylesheet' href='resource/bootstrap.min.css'>
 
 </head>
-<STYLE>body{
+<STYLE>
+body{
     font-family: 'Trebuchet MS', serif;
-}</STYLE>
+}
+
+.tableFixHead { overflow-y: auto; height: 500px; }
+
+/* Just common table stuff. */
+table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 16px; }
+th     { background:#eee; }
+</STYLE>
 <body>
 
 
@@ -38,19 +47,24 @@
 		</div>	
 	</div>
 		<div class="row">
-			<div class="col-12">
-				<table class='table table-hover'>
-					<tr class="bg-warning">	
+			<div class="col-12" >
+      <div class="tableFixHead">
+				<table class='table table-hover' id="myTable" >
+        <thead>
+					<tr>	
 						<th onclick="sortTable(0)">Nama Barang<i class="material-icons align-text-top">sort</i></th>
 						<th>Jumlah</th>
 						<th onclick="sortTable(2)">Tanggal Peminjaman<i class="material-icons align-text-top">sort</i></th>
 						<th onclick="sortTable(3)">Tanggal Kembali<i class="material-icons align-text-top">sort</i></th>
 						<th onclick="sortTable(4)">Nama Peminjam<i class="material-icons align-text-top">sort</i></th>
 						<th>Kontak Peminjam</th>
+            <th>Kontak Cadangan</th>
 						<th>Status</th>
 						<th></th>
 						
 					</tr>
+          </thead>
+          <tbody>
 					<?php 
 					include 'connect.php';
 					$no = 1;
@@ -58,7 +72,8 @@
 					$data1 = mysqli_query($conn,"select nama_barang from barang where id = id_barang");
 					while($d = mysqli_fetch_array($data)){
 						?>
-						<tr>
+            
+						<tr >
 							<?php
 								$id_brng = $d['id_barang'];
 							
@@ -75,8 +90,9 @@
               $newDate_kembali = date("d-m-Y", strtotime($d['tanggal_kembali']));
               ?>
 							<td class='align-middle'><?php echo $newDate_kembali; ?></td>
-							<td class='align-middle'><?php echo $d['nama_peminjam']; ?></td>
+							<td class='align-middle text-capitalize'><?php echo $d['nama_peminjam']; ?></td>
 							<td class='align-middle'><?php echo $d['kontak_peminjam']; ?></td>
+              <td class='align-middle'><?php echo $d['kontak_cadangan']; ?></td>
 							<td class='align-middle'>
 								<?php 
 									//echo $d['kontak_cadangan'];
@@ -98,13 +114,9 @@
 						<?php 
 					}
 					?>
+          </tbody>
 				</table>		
-			
-			
-			
-			
-			
-			
+        </div>
 			</div>
 		</div>
 	</div>
@@ -202,6 +214,11 @@ function sortTable(n) {
     }
   }
 }
+</script>
+<script>var $th = $('.tableFixHead').find('thead th')
+$('.tableFixHead').on('scroll', function() {
+  $th.css('transform', 'translateY('+ this.scrollTop +'px)');
+});
 </script>
 </body>
 </html>

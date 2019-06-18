@@ -108,7 +108,7 @@ $sql_jumlah = mysqli_query($conn,"select * from barang where id = $id_brng");
 		?>
 		<div class="container">
         <div class="row">
-		<div class="col-12 text-center" style="margin-top:30px;margin-bottom:0px;">
+		<div class="col-12 text-center" style="margin-top:30px;margin-bottom:20px;">
     		<h2 class='display-4'>FORM BARANG KEMBALI</h2>
 		</div>	
 	</div>

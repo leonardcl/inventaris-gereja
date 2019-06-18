@@ -33,6 +33,12 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
 * {
   box-sizing: border-box;
 }
+.tableFixHead { margin-right:15px; margin-left:15px;overflow-y: auto; height: 450px;}
+
+/* Just common table stuff. */
+table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 0px 0px; }
+th     { background:#eee; }
 #confirmBox
 {
     display: none;
@@ -82,10 +88,9 @@ $result = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
 }
 #myTable {
   border-collapse: collapse;
-  width: 98%;
+  width: 100%;
   border: 1px solid #ddd;
   font-size: 18px;
-  margin-left:16px;
 }
 
 #myTable th, #myTable td {
@@ -124,27 +129,28 @@ body{
             <a href="form_barang.php" class='btn btn-dark ' style='margin-top: -5px;margin-left: 60px'><i class="material-icons align-text-top">playlist_add</i></a>
             </div>
             <div class="col-4">
-              <input type="text" class='form-control' id="myInput" onkeyup="myFunction()" placeholder="Cari..." title="Type in a name">
+              <input type="text" class='form-control' id="myInput" placeholder="Cari..." title="Type in a name">
             </div>
                 <div class="col-3"></div>
         </div>
         <div class="row">
             <div class="col-12">
-                <table class='table table-hover'id="myTable" >
-                    
-                    <tr class="bg-info" class="header">
+            <div class="tableFixHead">
+                <table class='table table-hover' id="myTable" >
+                    <thead>
+                    <tr class="header">
                         <th onclick="sortTable(0)">Nama Barang<i class="material-icons align-text-top">sort</i></th>
                         <th>Jumlah</th> 
                         <th>Rusak</th> 
                         <th>Servis</th> 
                         <th>Yang Tersedia</th> 
                         <th onclick="sortTable(5)">Tahun Beli <i class="material-icons align-text-top">sort</i></th>
-                        <th onclick="sortTable(6)">Owner <i class="material-icons align-text-top">sort</i></th>
+                        <th onclick="sortTable(6)">Pemilik <i class="material-icons align-text-top">sort</i></th>
                         <th onclick="sortTable(7)">Lokasi <i class="material-icons align-text-top">sort</i></th>
                         <th>Opsi</th>  
                     </tr>
-              
-                    <tbody id="myTable1">
+                    </thead>
+                    <tbody id='myTable1'>
                     <?php  
                     if(isset($_POST['lokasi'])){
                         $loc = (string)$_POST['lokasi'];
@@ -200,8 +206,10 @@ body{
                     </tbody>
                 </table>
             </div>
+            </div>
     </div>
     </div>
+    
     <script>function doConfirm(msg, yesFn, noFn)
 {
     var confirmBox = $("#confirmBox");
@@ -303,6 +311,11 @@ $(document).ready(function(){
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
+});
+</script>
+<script>var $th = $('.tableFixHead').find('thead th')
+$('.tableFixHead').on('scroll', function() {
+  $th.css('transform', 'translateY('+ this.scrollTop +'px)');
 });
 </script>
 </body>

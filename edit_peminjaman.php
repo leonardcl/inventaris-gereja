@@ -31,6 +31,9 @@
     
     $id = $_GET['id'];
     $recent = mysqli_query($conn,"select * from peminjaman where id_peminjaman='$id'");
+    $recent_2 = mysqli_query($conn,"select * from peminjaman where id_peminjaman='$id'");
+     $d2 = mysqli_fetch_array($recent_2);
+     $recent_jumlah = $d2['jumlah'];
     $id_peminjaman = $id;
     $recent_history = mysqli_query($conn, "select * from history where id_peminjaman='$id'");
 
@@ -38,15 +41,24 @@
     $id_peminjam = $id_barang = $jumlah = $tanggal_peminjam = $tanggal_kembali = $nama_peminjam = $kontak_peminjam = $kontak_cadangan= $kondisiErr = "";
 
     if(isset($_POST['update'])) {
-        if (empty($_POST["jumlah"])){
-            $jumlahErr = "Jumlah harus diisi!";
-    } else {
-            $jumlah = test_input($_POST["jumlah"]);
-            $jumlahErr = "";
-        if (!preg_match("/^[0-9]*$/", $jumlah)){
-                $jumlahErr = "Isikan dengan angka!";
-        }
+        $idbrng = $_POST['id_barang'];
+  if (empty($_POST["jumlah"])){
+      $jumlahErr = "Jumlah harus diisi!";
+  } else {
+      $jumlah = test_input($_POST["jumlah"]);
+      $jumlahErr = "";
+      $idbrng = $_POST['id_barang'];
+      $sql_jumlah = mysqli_query($conn,"select * from barang where id = $idbrng");
+      $data = mysqli_fetch_assoc($sql_jumlah);
+      $available = $data['jumlah'] -  $data['jumlah_rusak'] - $data['jumlah_servis'] -$data['jumlah_pinjam']+$recent_jumlah;
+      if ($available < $_POST["jumlah"]) {
+        # code...
+        $jumlahErr = "Barang sisa : ".(string)$available;
+      }
+    if (!preg_match("/^[0-9]*$/", $jumlah)){
+        $jumlahErr = "Isikan dengan angka!";
     }
+  }
         
     if (empty($_POST["tanggal_peminjaman"])) {
         $tanggal_peminjamErr = "Tanggal peminjam harus diisi!";
@@ -65,16 +77,7 @@
         
     }  
 
-    if (empty($_POST["nama_peminjam"])) {
-        $nama_peminjamErr = "Name lengkap wajib diisi!";
-    } else {
-        $nama_peminjam = test_input($_POST["nama_peminjam"]);
-        $nama_peminjamErr = "";
-        if (!preg_match("/^[a-zA-Z ]*$/",$nama_peminjam)) {
-            $nama_peminjamErr = "Only letters and white space allowed"; 
-            
-        }
-    } 
+
 
     if (empty($_POST["kontak_peminjam"])) {
         $kontak_peminjamErr = "Kontak wajib diisi!";
@@ -87,20 +90,31 @@
             
     }
 }
-if (empty($_POST["kondisi"])) {
-    $kondisiErr = "Kondisi Barang wajib diisi!";
-} else {
-    $kondisi = test_input($_POST["kondisi"]);
-    // check if phone number is integer
-    $kondisiErr = "";
-}
 
-
+if ($tanggal_kembali<$tanggal_peminjam) {
+    # code...
+    $tanggal_kembaliErr = "Tanggal kembali harus setelah tanggal pinjam";
+  }
 
         
-        $sql = "update peminjaman set  tanggal_kembali='".$_POST['tanggal_kembali']."' where id_peminjaman='$id_peminjaman'";
-        $sql_kon = "update history set tanggal_kembali='".$_POST['tanggal_kembali']."' where id_peminjaman = '$id_peminjaman'";
+        $sql = "update peminjaman set  jumlah=$jumlah,tanggal_kembali='".$_POST['tanggal_kembali']."',tanggal_peminjaman='".$_POST['tanggal_peminjaman']."' where id_peminjaman='$id_peminjaman'";
+        $sql_kon = "update history set jumlah=$jumlah,tanggal_kembali='".$_POST['tanggal_kembali']."',tanggal_peminjaman='".$_POST['tanggal_peminjaman']."' where id_peminjaman = '$id_peminjaman'";
 
+
+
+        $sql_jumlah = mysqli_query($conn,"select * from barang where id = $idbrng");
+        $data = mysqli_fetch_assoc($sql_jumlah);
+        $id = $data['id'];
+        $nama=$data['nama_barang'];
+        $jumlah=$data['jumlah'];
+        $jumlah_servis=$data['jumlah_servis'];
+        $jumlah_pinjam=$data['jumlah_pinjam']+(int)$_POST['jumlah']-$recent_jumlah;
+        $jumlah_rusak=$data['jumlah_rusak'];
+        $tahun=$data['tahun_beli'];
+        $owner=$data['owner'];
+        $lokasi=$data['lokasi'];
+      
+        $perintah = "UPDATE barang SET nama_barang='$nama',jumlah=$jumlah,jumlah_rusak=$jumlah_rusak,jumlah_pinjam=$jumlah_pinjam,jumlah_servis=$jumlah_servis,tahun_beli='$tahun', owner='$owner', lokasi='$lokasi' where id=$id";
         
         
 
@@ -109,16 +123,15 @@ if (empty($_POST["kondisi"])) {
         // echo "ehllo";
             if (mysqli_query($conn, $sql)) {
                 $dummy = mysqli_query($conn, $sql_kon);
+                mysqli_query($conn,$perintah);
                 header("Location: tabel_peminjaman.php");
                 echo $nama_peminjam;
                 echo $id_peminjaman;
             } else {
-                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
             }
             
     }
     else {
-        echo "GAGAL";
     }
     }
     function test_input($data) {
@@ -134,6 +147,7 @@ if (empty($_POST["kondisi"])) {
 
 	while($d = mysqli_fetch_array($recent)){
         $d_history = mysqli_fetch_assoc($recent_history);
+
 		?>
 		<div class="container">
         <div class="row">
@@ -169,8 +183,8 @@ if (empty($_POST["kondisi"])) {
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Jumlah</label>
-                    <input class='form-control' type="num" name="jumlah" value="<?php echo $d['jumlah'];?>" readonly>
+                    <label>Jumlah</label><span class="text-danger">* <?php echo $jumlahErr;?></span>
+                    <input class='form-control' type="num" name="jumlah" value="<?php echo $d['jumlah'];?>" >
                 </div>
                 <div class="form-group">
                     <label>Tanggal Peminjaman</label><span class="text-danger">* <?php echo $tanggal_peminjamErr;?></span>

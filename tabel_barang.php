@@ -188,17 +188,17 @@ body{
                         <div id="confirmBox">
                           <div class="message"></div>
                           
-                          <a class="btn btn-danger btn-sm" href="delete_barang.php?id=<?php echo $user_data['id']; ?>">Ya</a>
-                          <a href="#" class="btn btn-primary no btn-sm">No</a>
+                          <a title= '<?php echo $user_data['id'] ?>' class="btn btn-danger btn-sm" href='#'>Ya</a>
+                          <a href="tabel_barang.php" class="btn btn-primary no btn-sm">No</a>
                           </div>
-                          <button class='btn btn-danger btn-sm' onclick='doConfirm("Apakah anda ingin menghapus barang?", function yes()
+                          <a title= '<?php echo $user_data['id'] ?>' href="delete_barang.php?id=<?php echo $user_data['id']; ?>" class='btn btn-danger btn-sm' onclick='doConfirm("Apakah anda ingin menghapus barang?", function yes()
                           {
                           alert("YEs")
                           },
                           function no()
                           {
                           alert("No")
-                          });'><i class='material-icons align-text-top'>delete</i></button></td></tr>
+                          });'><i class='material-icons align-text-top'>delete</i></a></td></tr>
                         <?php       
                     }
                     ?>        

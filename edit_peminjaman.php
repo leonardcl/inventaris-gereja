@@ -97,8 +97,8 @@ if ($tanggal_kembali<$tanggal_peminjam) {
   }
 
         
-        $sql = "update peminjaman set  jumlah=$jumlah,tanggal_kembali='".$_POST['tanggal_kembali']."',tanggal_peminjaman='".$_POST['tanggal_peminjaman']."' where id_peminjaman='$id_peminjaman'";
-        $sql_kon = "update history set jumlah=$jumlah,tanggal_kembali='".$_POST['tanggal_kembali']."',tanggal_peminjaman='".$_POST['tanggal_peminjaman']."' where id_peminjaman = '$id_peminjaman'";
+        $sql = "update peminjaman set  jumlah=$jumlah,tanggal_kembali='".$_POST['tanggal_kembali']."',tanggal_peminjaman='".$_POST['tanggal_peminjaman']."',kontak_cadangan= '".$_POST['kontak_cadangan']."' where id_peminjaman='$id_peminjaman'";
+        $sql_kon = "update history set jumlah=$jumlah,tanggal_kembali='".$_POST['tanggal_kembali']."',tanggal_peminjaman='".$_POST['tanggal_peminjaman']."',kontak_cadangan='".$_POST['kontak_candangan']."' where id_peminjaman = '$id_peminjaman'";
 
 
 
@@ -204,7 +204,7 @@ if ($tanggal_kembali<$tanggal_peminjam) {
                 </div>
                 <div class="form-group">
                     <label>Kontak Cadangan</label><span class="text-danger">* <?php echo $kontak_cadanganErr;?></span>
-                    <input class='form-control' type="text" name="kontak_cadangan" value="<?php echo $d['kontak_cadangan'];?>" readonly>
+                    <input class='form-control' type="text" name="kontak_cadangan" value="<?php echo $d['kontak_cadangan'];?>" >
                 </div>
                 <p><span class="text-danger">* Dapat diubah!</span></p>
                 <input class='btn btn-primary'type="submit" name="update" value="Masukkan Data">

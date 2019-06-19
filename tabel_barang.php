@@ -184,21 +184,11 @@ body{
 								        $d2 = mysqli_fetch_array($data2);   
                         echo "<td class='align-middle'>".$d2['lokasi']."</td>";
                         ?>    
-                        <td><a class='btn btn-primary btn-sm' href="edit_barang.php?id=<?php echo $user_data['id']; ?>"><i class='material-icons align-text-top'>create</i></a> 
-                        <div id="confirmBox">
-                          <div class="message"></div>
-                          
-                          <a class="btn btn-danger btn-sm" href="delete_barang.php?id=<?php echo $user_data['id']; ?>">Ya</a>
-                          <a href="#" class="btn btn-primary no btn-sm">No</a>
-                          </div>
-                          <button class='btn btn-danger btn-sm' onclick='doConfirm("Apakah anda ingin menghapus barang?", function yes()
-                          {
-                          alert("YEs")
-                          },
-                          function no()
-                          {
-                          alert("No")
-                          });'><i class='material-icons align-text-top'>delete</i></button></td></tr>
+                        <td><a class='btn btn-primary btn-sm' href="edit_barang.php?id=<?php echo $user_data['id']; ?>"><i class='material-icons align-text-top'>create</i>
+                        <a class='btn btn-danger btn-sm' href="delete_barang.php?id=<?php echo $user_data['id']; ?>"><i class='material-icons align-text-top'>delete</i>
+                        </a> 
+                        
+                       </td></tr>
                         <?php       
                     }
                     ?>        

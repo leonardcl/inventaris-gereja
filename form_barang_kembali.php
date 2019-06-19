@@ -33,8 +33,11 @@
     $id = $_GET['id'];
     $recent = mysqli_query($conn,"select * from peminjaman where id_peminjaman='$id'");
     $id_peminjaman = $id;
+    $recent_data = mysqli_query($conn,"select * from peminjaman where id_peminjaman='$id'");
+
     $recent_history = mysqli_query($conn, "select * from history where id_peminjaman='$id'");
 
+    $data_jumlah = mysqli_fetch_assoc($recent_data);
     $id_peminjamErr = $id_barangErr = $jumlahErr = $tanggal_peminjamErr = $tanggal_kembaliErr = $nama_peminjamErr = $kontak_peminjamErr = $kontak_cadanganErr= $kondisi ="";
     $id_peminjam = $id_barang = $jumlah = $tanggal_peminjam = $tanggal_kembali = $nama_peminjam = $kontak_peminjam = $kontak_cadangan= $kondisiErr = "";
 
@@ -62,7 +65,13 @@ $sql_jumlah = mysqli_query($conn,"select * from barang where id = $id_brng");
   $owner=$data['owner'];
   $lokasi=$data['lokasi'];
 
-
+    if($data_jumlah['jumlah'] < $_POST['kondisi'])
+    {
+        $kondisiErr = "Jumlah rusak melebihi jumlah pinjam";
+    }
+    else{
+        $kondisiErr = "";
+    }
     $id_barang1 = $_POST['id_barang'];
     $recent_barang = mysqli_query($conn, "select jumlah_rusak from barang where id = $id_barang1");
     $data_barang = mysqli_fetch_assoc($recent_barang);
@@ -73,9 +82,8 @@ $sql_jumlah = mysqli_query($conn,"select * from barang where id = $id_brng");
         $sel = "update barang set jumlah_rusak=$jumlah_rusak, jumlah_pinjam=$jumlah_pinjam where id = $id_barang1";
     
         
-        
 
-        if($jumlahErr == "")
+        if($kondisiErr == "")
     {
         // echo "ehllo";
             if (mysqli_query($conn, $sql) && mysqli_query($conn, $sql_kon) && mysqli_query($conn, $sel)) {
@@ -89,7 +97,7 @@ $sql_jumlah = mysqli_query($conn,"select * from barang where id = $id_brng");
             
     }
     else {
-        echo "GAGAL";
+
     }
     }
     function test_input($data) {

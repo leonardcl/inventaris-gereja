@@ -203,22 +203,7 @@ body{
 							<td class='align-middle'>
               <a style='margin:0;' class='btn btn-success btn-sm' href="form_barang_kembali.php?id=<?php echo $d['id_peminjaman']; ?>"><i class='material-icons align-text-top'>done_outline</i></a>
 								<a style='margin:0;' class='btn btn-primary btn-sm' href="edit_peminjaman.php?id=<?php echo $d['id_peminjaman']; ?>"><i class='material-icons align-text-top'>create</i></a>
-                
-        
-                <div id="confirmBox">
-                <div class="message"></div>
-                
-                <a class="btn btn-danger btn-sm" href="delete_peminjaman.php?id=<?php echo $d['id_peminjaman']; ?>">Yes</a>
-                <a href="#" class="btn btn-primary no btn-sm">No</a>
-                </div>
-                <button class='btn btn-danger btn-sm' onclick='doConfirm("Apakah anda ingin menghapus peminjaman?", function yes()
-                {
-                alert("YEs")
-                },
-                function no()
-                {
-                alert("No")
-                });'><i class='material-icons align-text-top'>delete</i></button>
+                <a style='margin:0;' class='btn btn-danger btn-sm' href="delete_peminjaman.php?id=<?php echo $d['id_peminjaman']; ?>"><i class='material-icons align-text-top'>delete</i></a>
 							</td>
 						</tr>
 						<?php 

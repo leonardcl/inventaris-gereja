@@ -185,20 +185,7 @@ body{
                         echo "<td class='align-middle'>".$d2['lokasi']."</td>";
                         ?>    
                         <td><a class='btn btn-primary btn-sm' href="edit_barang.php?id=<?php echo $user_data['id']; ?>"><i class='material-icons align-text-top'>create</i></a> 
-                        <div id="confirmBox">
-                          <div class="message"></div>
-                          
-                          <a class="btn btn-danger btn-sm" href="delete_barang.php?id=<?php echo $user_data['id']; ?>">Ya</a>
-                          <a href="#" class="btn btn-primary no btn-sm">No</a>
-                          </div>
-                          <button class='btn btn-danger btn-sm' onclick='doConfirm("Apakah anda ingin menghapus barang?", function yes()
-                          {
-                          alert("YEs")
-                          },
-                          function no()
-                          {
-                          alert("No")
-                          });'><i class='material-icons align-text-top'>delete</i></button></td></tr>
+                        <a class='btn btn-danger btn-sm confirmation' href="delete_barang.php?id=<?php echo $user_data['id']; ?>"><i class='material-icons align-text-top'>delete</i></a> </td></tr>
                         <?php       
                     }
                     ?>        
@@ -209,7 +196,15 @@ body{
             </div>
     </div>
     </div>
-    
+    <script type="text/javascript">
+    var elems = document.getElementsByClassName('confirmation');
+    var confirmIt = function (e) {
+        if (!confirm('Apakah anda yakin ingin menghapus?')) e.preventDefault();
+    };
+    for (var i = 0, l = elems.length; i < l; i++) {
+        elems[i].addEventListener('click', confirmIt, false);
+    }
+</script>
     <script>function doConfirm(msg, yesFn, noFn)
 {
     var confirmBox = $("#confirmBox");

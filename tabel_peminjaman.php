@@ -203,7 +203,7 @@ body{
 							<td class='align-middle'>
               <a style='margin:0;' class='btn btn-success btn-sm' href="form_barang_kembali.php?id=<?php echo $d['id_peminjaman']; ?>"><i class='material-icons align-text-top'>done_outline</i></a>
 								<a style='margin:0;' class='btn btn-primary btn-sm' href="edit_peminjaman.php?id=<?php echo $d['id_peminjaman']; ?>"><i class='material-icons align-text-top'>create</i></a>
-                <a style='margin:0;' class='btn btn-danger btn-sm' href="delete_peminjaman.php?id=<?php echo $d['id_peminjaman']; ?>"><i class='material-icons align-text-top'>delete</i></a>
+                <a style='margin:0;' class='btn btn-danger btn-sm confirmation' href="delete_peminjaman.php?id=<?php echo $d['id_peminjaman']; ?>"><i class='material-icons align-text-top'>delete</i></a>
 							</td>
 						</tr>
 						<?php 
@@ -215,6 +215,15 @@ body{
       </div>
 		</div>
 	</div>
+  <script type="text/javascript">
+    var elems = document.getElementsByClassName('confirmation');
+    var confirmIt = function (e) {
+        if (!confirm('Apakah anda yakin ingin menghapus?')) e.preventDefault();
+    };
+    for (var i = 0, l = elems.length; i < l; i++) {
+        elems[i].addEventListener('click', confirmIt, false);
+    }
+</script>
 	<script>function doConfirm(msg, yesFn, noFn)
 {
     var confirmBox = $("#confirmBox");

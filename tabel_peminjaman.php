@@ -188,12 +188,12 @@ body{
 							<td class='align-middle'><?php echo $d['jumlah']; ?></td>
               <?php 
               
-              $newDate_pinjam = date("d-m-Y", strtotime($d['tanggal_peminjaman']));
+              $newDate_pinjam = date("Y-m-d", strtotime($d['tanggal_peminjaman']));
               ?>
 							<td class='align-middle'><?php echo $newDate_pinjam; ?></td>
               <?php 
 
-              $newDate_kembali = date("d-m-Y", strtotime($d['tanggal_kembali']));
+              $newDate_kembali = date("Y-m-d", strtotime($d['tanggal_kembali']));
               
               ?>
 							<td class='align-middle'><?php echo $newDate_kembali; ?></td>

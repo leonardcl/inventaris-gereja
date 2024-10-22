@@ -5,6 +5,8 @@
 ![MySQL](https://img.shields.io/badge/MySQL-v5.7-orange)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green)
 
+![Description of the image](path/to/your/img.webp)
+
 This repository contains the **Church Inventory Management System** developed as part of a Service Learning project at Universitas Kristen Petra (UKP). The system allows church administrators to manage the inventory of equipment and track lending records in a web-based interface.
 
 ## Table of Contents
